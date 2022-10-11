@@ -16,15 +16,15 @@ namespace DTO
         }
         public T ParseToObject<T>(string response)
         {
-            T? result = default(T);
+            //T? result = default(T);
 
-            if(typeof(T) == typeof(Vertex)) // Parse vertex
-            {
-                result = JsonConvert.DeserializeObject<T>(response);
-            }
-            else if(typeof(T) == typeof(Edge))
-            {
-            }
+            //if(typeof(T) == typeof(Vertex)) // Parse vertex
+            //{
+            //    result = JsonConvert.DeserializeObject<T>(response);
+            //}
+            //else if(typeof(T) == typeof(Edge))
+            //{
+            //}
             throw new NotImplementedException();
         }
     }
