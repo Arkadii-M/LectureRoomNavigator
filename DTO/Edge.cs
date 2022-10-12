@@ -8,7 +8,7 @@ namespace DTO
 {
     internal class Edge
     {
-        public object? Id { get; set; }
+        public string? Id { get; set; }
         public string? Value { get; set; }
         public string? Lable { get; set; }
     }
