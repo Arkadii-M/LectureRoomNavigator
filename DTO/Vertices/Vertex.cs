@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO
+namespace DTO.Vertices
 {
     public class Vertex
     {
-        public string? Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         public string? Lable { get; set; }
         public string? Type { get; set; }
         public string? PartitionKey { get; set; } = string.Empty;

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -29,6 +30,18 @@ namespace DAL
         {
             var value_split = value.ToString().Split(',');
             return (value_split.Length == 2) ? (value_split[0] + value_split[1] + "e-" + value_split[1].Length) : value_split[0];
+        }
+
+        public static bool IsResponseOk(IReadOnlyDictionary<string, object> dictionary)
+        {
+            return GetResponseValue(dictionary, "x-ms-status-code") is "200";
+        }
+        public static string? GetResponseValue(IReadOnlyDictionary<string, object> dictionary, string key)
+        {
+            if (dictionary.ContainsKey(key))
+                return JsonConvert.SerializeObject(dictionary[key]);
+            return null;
+
         }
     }
 }

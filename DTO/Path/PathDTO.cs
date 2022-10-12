@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Interface
+namespace DTO.Path
 {
-    internal interface IEdgeDal
+    public class PathDTO
     {
+
     }
 }
