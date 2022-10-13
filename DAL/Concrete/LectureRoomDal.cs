@@ -146,7 +146,7 @@ namespace DAL.Concrete
         {
             List<LectureRoomDTO> res = new List<LectureRoomDTO>();
             var gremlinCode = $@"
-				g.V().hasLabel('{label}').where('floor',{floor}
+				g.V().hasLabel('{label}').where('floor',{floor})
 			";
             using (var gremlinClient = new GremlinClient(
                             _server,
