@@ -15,10 +15,10 @@ namespace DAL.Concrete
     public class NavigationNodeDal : INavigationNodeDal
     {
         private static readonly string label = "navigation";
-        private GremlinServer _server;
-        public NavigationNodeDal(GremlinServer server)
+        private IGremlinClient _client;
+        public NavigationNodeDal(IGremlinClient client)
         {
-            _server = server;
+            _client = client;
         }
 
         public NavigationNodeDTO AddNavigationNode(NavigationNodeDTO node)
@@ -31,15 +31,10 @@ namespace DAL.Concrete
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                node.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            node.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return node;
         }
 
@@ -51,29 +46,19 @@ namespace DAL.Concrete
         public bool RemoveNavigationNodeById(string id)
         {
             var gremlinCode = $@"g.V('{id}').drop()";
-            using (var gremlinClient = new GremlinClient(
-                _server,
-                new GraphSON2Reader(),
-                new GraphSON2Writer(),
-                GremlinClient.GraphSON2MimeType))
-            {
-                var res = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                return GremlinRequest.IsResponseOk(res.StatusAttributes);
-            }
+
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
+            
         }
 
         public bool RemoveAllNavigationNodesFromDatabase()
         {
             var gremlinCode = $@"g.V().hasLabel('{label}').drop()";
-            using (var gremlinClient = new GremlinClient(
-                _server,
-                new GraphSON2Reader(),
-                new GraphSON2Writer(),
-                GremlinClient.GraphSON2MimeType))
-            {
-                var res = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                return GremlinRequest.IsResponseOk(res.StatusAttributes);
-            }
+
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
+            
         }
 
         public List<NavigationNodeDTO> GetAllNavigationNodes()
@@ -82,20 +67,15 @@ namespace DAL.Concrete
             var gremlinCode = $@"
 				g.V().hasLabel('{label}')
 			";
-            using (var gremlinClient = new GremlinClient(
-                            _server,
-                            new GraphSON2Reader(),
-                            new GraphSON2Writer(),
-                            GremlinClient.GraphSON2MimeType))
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            foreach (var node in result)
             {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                foreach (var node in result)
-                {
-                    var curr =new NavigationNodeDTO();
-                    curr.TryParseDynamicToCurrent(node);
-                    res.Add(curr);
-                }
+                var curr =new NavigationNodeDTO();
+                curr.TryParseDynamicToCurrent(node);
+                res.Add(curr);
             }
+            
             return res;
         }
 
@@ -107,15 +87,10 @@ namespace DAL.Concrete
 				g.V('{id}')
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result  = GremlinRequest.SubmitRequest(gremlinClient,gremlinCode).Result;
-                res.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result  = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            res.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return res;
         }
 
@@ -127,15 +102,10 @@ namespace DAL.Concrete
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                node.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            node.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return node;
         }
 
@@ -144,20 +114,15 @@ namespace DAL.Concrete
             List<NavigationNodeDTO> res = new List<NavigationNodeDTO>();
             var gremlinCode = $@"g.V().hasLabel('{label}').where('floor',{floor})";
 
-            using (var gremlinClient = new GremlinClient(
-                            _server,
-                            new GraphSON2Reader(),
-                            new GraphSON2Writer(),
-                            GremlinClient.GraphSON2MimeType))
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            foreach (var node in result)
             {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                foreach (var node in result)
-                {
-                    var curr = new NavigationNodeDTO();
-                    curr.TryParseDynamicToCurrent(node);
-                    res.Add(curr);
-                }
+                var curr = new NavigationNodeDTO();
+                curr.TryParseDynamicToCurrent(node);
+                res.Add(curr);
             }
+            
             return res;
         }
     }

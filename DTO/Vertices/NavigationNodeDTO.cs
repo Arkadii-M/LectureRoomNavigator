@@ -13,7 +13,7 @@ namespace DTO.Vertices
         public uint Floor { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
-        public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
+        new public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
         {
             if (dynamicObject == null) return false;
             try

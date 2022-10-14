@@ -11,7 +11,7 @@ namespace DAL
 {
     public class GremlinRequest
     {
-        public static Task<ResultSet<dynamic>> SubmitRequest(GremlinClient gremlinClient, string query)
+        public static Task<ResultSet<dynamic>> SubmitRequest(IGremlinClient gremlinClient, string query)
         {
             try
             {

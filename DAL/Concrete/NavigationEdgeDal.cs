@@ -16,11 +16,12 @@ namespace DAL.Concrete
     public class NavigationEdgeDal : INavigationEdgeDal
     {
         private static readonly string label = "distance";
-        private GremlinServer _server;
-        public NavigationEdgeDal(GremlinServer server)
+        private IGremlinClient _client;
+        public NavigationEdgeDal(IGremlinClient client)
         {
-            _server = server;
+            _client = client;
         }
+
         public NavigationEdgeDTO AddNavigationEdge(NavigationEdgeDTO edge)
         {
             var gremlinCode = $@"
@@ -33,15 +34,10 @@ namespace DAL.Concrete
 
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                edge.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            edge.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return edge;
         }
 
@@ -50,20 +46,15 @@ namespace DAL.Concrete
             List<NavigationEdgeDTO> res = new List<NavigationEdgeDTO>();
             var gremlinCode = $@"g.E().hasLabel('{label}')";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            foreach (var edge in result)
             {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                foreach (var edge in result)
-                {
-                    var curr = new NavigationEdgeDTO();
-                    curr.TryParseDynamicToCurrent(edge);
-                    res.Add(curr);
-                }
+                var curr = new NavigationEdgeDTO();
+                curr.TryParseDynamicToCurrent(edge);
+                res.Add(curr);
             }
+            
             return res;
         }
 
@@ -72,15 +63,9 @@ namespace DAL.Concrete
             NavigationEdgeDTO edge = new NavigationEdgeDTO();
             var gremlinCode = $@"g.E('{id}')";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                edge.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            edge.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return edge;
         }
 
@@ -89,35 +74,25 @@ namespace DAL.Concrete
             List<NavigationEdgeDTO> res = new List<NavigationEdgeDTO>();
             var gremlinCode = $@"g.V('{node.Id}').bothE()";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            foreach (var edge in result)
             {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                foreach (var edge in result)
-                {
-                    var curr = new NavigationEdgeDTO();
-                    curr.TryParseDynamicToCurrent(edge);
-                    res.Add(curr);
-                }
+                var curr = new NavigationEdgeDTO();
+                curr.TryParseDynamicToCurrent(edge);
+                res.Add(curr);
             }
+            
             return res;
         }
 
         public bool RemoveAllNavigationEdges()
         {
             var gremlinCode = $@"g.E().hasLabel('{label}').drop()";
-            using (var gremlinClient = new GremlinClient(
-                _server,
-                new GraphSON2Reader(),
-                new GraphSON2Writer(),
-                GremlinClient.GraphSON2MimeType))
-            {
-                var res = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                return GremlinRequest.IsResponseOk(res.StatusAttributes);
-            }
+
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
+            
         }
 
         public bool RemoveNavigationEdge(NavigationEdgeDTO edge)
@@ -128,15 +103,10 @@ namespace DAL.Concrete
         public bool RemoveNavigationEdgeById(string id)
         {
             var gremlinCode = $@"g.E('{id}').drop()";
-            using (var gremlinClient = new GremlinClient(
-                _server,
-                new GraphSON2Reader(),
-                new GraphSON2Writer(),
-                GremlinClient.GraphSON2MimeType))
-            {
-                var res = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                return GremlinRequest.IsResponseOk(res.StatusAttributes);
-            }
+
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
+            
         }
 
         public NavigationEdgeDTO UpdateNavigationEdge(NavigationEdgeDTO edge)
@@ -148,15 +118,10 @@ namespace DAL.Concrete
 
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                edge.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            edge.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return edge;
         }
     }

@@ -7,29 +7,31 @@ using System.Threading.Tasks;
 
 namespace DTO.Vertices
 {
-    public class Vertex
+    public class Vertex :IDynamicParse
     {
         public string Id { get; set; } = string.Empty;
         public string? Lable { get; set; }
         public string? Type { get; set; }
         public string? PartitionKey { get; set; } = string.Empty;
+        public object? Properties { get; set; }
 
-        //virtual public bool TryParseDynamicToCurrent(ref dynamic? dynamicObject)
-        //{
-        //    if (dynamicObject == null) return false;
+        public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
+        {
+            if (dynamicObject == null) return false;
 
-        //    try
-        //    {
-        //        Id = dynamicObject["id"];
-        //        Lable = dynamicObject["label"];
-        //        Type = dynamicObject["type"];
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //        return false;
-        //    }
-        //    return true;
-        //}
+            try
+            {
+                Id = dynamicObject["id"];
+                Lable = dynamicObject["label"];
+                Type = dynamicObject["type"];
+                Properties = dynamicObject["properties"];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -12,10 +12,21 @@ namespace DTO.Edges
     public enum NavEdgeType { straight, stairs_up,stairs_down }
     public class NavigationEdgeDTO : Edge,IDynamicParse
     {
+        //public NavigationEdgeDTO() { }
+
+        //public NavigationEdgeDTO(Edge edge):
+        //    base(edge)
+        //{
+        //    if(edge.Properties != null)
+        //    {
+
+        //    }
+        //}
+
         public double Distance { get; set; }
         public NavEdgeType EdgeType { get; set; } = NavEdgeType.straight;
 
-        public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
+        new public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
         {
             if (dynamicObject == null) return false;
             try

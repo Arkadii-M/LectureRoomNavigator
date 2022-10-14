@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Interface
 {
-    internal interface ILectureRoomNodeDal
+    public interface ILectureRoomNodeDal
     {
         LectureRoomDTO AddLectureRoomNode(LectureRoomDTO node);
 

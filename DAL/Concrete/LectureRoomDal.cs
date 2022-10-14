@@ -13,10 +13,10 @@ namespace DAL.Concrete
     public class LectureRoomDal : ILectureRoomNodeDal
     {
         private static readonly string label = "lectrue_room";
-        private GremlinServer _server;
-        public LectureRoomDal(GremlinServer server)
+        private IGremlinClient _client;
+        public LectureRoomDal(IGremlinClient client)
         {
-            _server = server;
+            _client = client;
         }
 
         public LectureRoomDTO AddLectureRoomNode(LectureRoomDTO node)
@@ -31,15 +31,10 @@ namespace DAL.Concrete
                     .property('name',{node.Name})
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                node.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            node.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return node;
         }
 
@@ -51,29 +46,18 @@ namespace DAL.Concrete
         public bool RemoveLectureRoomNodeById(string id)
         {
             var gremlinCode = $@"g.V('{id}').drop()";
-            using (var gremlinClient = new GremlinClient(
-                _server,
-                new GraphSON2Reader(),
-                new GraphSON2Writer(),
-                GremlinClient.GraphSON2MimeType))
-            {
-                var res = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                return GremlinRequest.IsResponseOk(res.StatusAttributes);
-            }
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
+            
         }
 
         public bool RemoveAllLectureRoomNodesFromDatabase()
         {
             var gremlinCode = $@"g.V().hasLabel('{label}').drop()";
-            using (var gremlinClient = new GremlinClient(
-                _server,
-                new GraphSON2Reader(),
-                new GraphSON2Writer(),
-                GremlinClient.GraphSON2MimeType))
-            {
-                var res = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                return GremlinRequest.IsResponseOk(res.StatusAttributes);
-            }
+
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
+            
         }
 
         public List<LectureRoomDTO> GetAllLectureRoomNodes()
@@ -82,20 +66,15 @@ namespace DAL.Concrete
             var gremlinCode = $@"
 				g.V().hasLabel('{label}')
 			";
-            using (var gremlinClient = new GremlinClient(
-                            _server,
-                            new GraphSON2Reader(),
-                            new GraphSON2Writer(),
-                            GremlinClient.GraphSON2MimeType))
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            foreach (var node in result)
             {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                foreach (var node in result)
-                {
-                    var curr = new LectureRoomDTO();
-                    curr.TryParseDynamicToCurrent(node);
-                    res.Add(curr);
-                }
+                var curr = new LectureRoomDTO();
+                curr.TryParseDynamicToCurrent(node);
+                res.Add(curr);
             }
+            
             return res;
         }
 
@@ -107,15 +86,9 @@ namespace DAL.Concrete
 				g.V('{id}')
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                res.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            res.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return res;
         }
 
@@ -130,15 +103,10 @@ namespace DAL.Concrete
 
 			";
 
-            using (var gremlinClient = new GremlinClient(
-                                        _server,
-                                        new GraphSON2Reader(),
-                                        new GraphSON2Writer(),
-                                        GremlinClient.GraphSON2MimeType))
-            {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                node.TryParseDynamicToCurrent(result.SingleOrDefault());
-            }
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            node.TryParseDynamicToCurrent(result.SingleOrDefault());
+            
             return node;
         }
 
@@ -148,20 +116,15 @@ namespace DAL.Concrete
             var gremlinCode = $@"
 				g.V().hasLabel('{label}').where('floor',{floor})
 			";
-            using (var gremlinClient = new GremlinClient(
-                            _server,
-                            new GraphSON2Reader(),
-                            new GraphSON2Writer(),
-                            GremlinClient.GraphSON2MimeType))
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            foreach (var node in result)
             {
-                var result = GremlinRequest.SubmitRequest(gremlinClient, gremlinCode).Result;
-                foreach (var node in result)
-                {
-                    var curr = new LectureRoomDTO();
-                    curr.TryParseDynamicToCurrent(node);
-                    res.Add(curr);
-                }
+                var curr = new LectureRoomDTO();
+                curr.TryParseDynamicToCurrent(node);
+                res.Add(curr);
             }
+            
             return res;
         }
     }
