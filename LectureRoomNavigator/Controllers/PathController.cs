@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLL.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -6,13 +7,24 @@ namespace LectureRoomNavigator.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NavigationController : ControllerBase
+    public class PathController : ControllerBase
     {
-        // GET: api/<NavigationController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IPathManager _pathManager;
+        public PathController([FromServices] IPathManager pathManager)
         {
-            return new string[] { "value1", "value2" };
+            _pathManager = pathManager;
+        }
+        // GET: api/<NavigationController>
+        [HttpGet("{from_id}/{to_id}")]
+        public IEnumerable<DTO.Path.SimplePathDTO> GetAll(string from_id, string to_id)
+        {
+            return _pathManager.GetAllPathesBetweenVertices(from_id, to_id).AsEnumerable();
+        }
+
+        [HttpGet("optimal/{from_id}/{to_id}")]
+        public DTO.Path.SimplePathDTO GetOptimal(string from_id, string to_id)
+        {
+            return _pathManager.GetOptimalPathBetweenVertices(from_id, to_id);
         }
 
         // GET api/<NavigationController>/5

@@ -15,14 +15,15 @@ export class Test extends Component {
     render() {
         return (
             <div>
-                <h1>Test component! And here is your data: {this.state.test_data[0]} {this.state.test_data[1]}</h1>
+                <h1>Test component! And here is length of your data: {this.state.test_data.length}</h1>
             </div>
         );
     }
 
     async GetTestData() {
-        const response = await fetch('api/values');
+        const response = await fetch('/api/navigationnode');
         const data = await response.json();
+        console.log(data);
         this.setState({ test_data: data, loading: false });
     }
 }

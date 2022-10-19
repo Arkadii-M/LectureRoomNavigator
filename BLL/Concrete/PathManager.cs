@@ -27,12 +27,26 @@ namespace BLL.Concrete
             return _alg.FindAllPathesBetweenVertices(from, to);
         }
 
+        public List<SimplePathDTO> GetAllPathesBetweenVertices(string from_id, string to_id)
+        {
+            Vertex from = new Vertex { Id = from_id};
+            Vertex to = new Vertex { Id = to_id };
+            return GetAllPathesBetweenVertices(from, to);
+        }
+
         public SimplePathDTO GetOptimalPathBetweenVertices(Vertex from, Vertex to)
         {
             var weitghet_pathes = _alg.FindAllPathesWithCostBetweenVertices(from, to);
             if(weitghet_pathes.IsAnyPathExists)
                 return weitghet_pathes.GetPathWithMinimumCost().Item2;
             throw new Exception("No path between verticex exists");
+        }
+
+        public SimplePathDTO GetOptimalPathBetweenVertices(string from_id, string to_id)
+        {
+            Vertex from = new Vertex { Id = from_id };
+            Vertex to = new Vertex { Id = to_id };
+            return GetOptimalPathBetweenVertices(from, to);
         }
     }
 }

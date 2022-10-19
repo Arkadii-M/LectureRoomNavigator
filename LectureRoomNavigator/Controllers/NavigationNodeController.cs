@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLL.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +9,16 @@ namespace LectureRoomNavigator.Controllers
     [ApiController]
     public class NavigationNodeController : ControllerBase
     {
+        private readonly INavigationManager _nav_manager;
+        public NavigationNodeController([FromServices] INavigationManager nav_manager)
+        {
+            _nav_manager = nav_manager;
+        }
         // GET: api/<NavigationNodeController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<DTO.Vertices.NavigationNodeDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _nav_manager.GetAllNavigationNodes().AsEnumerable();
         }
 
         // GET api/<NavigationNodeController>/5

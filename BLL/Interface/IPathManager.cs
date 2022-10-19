@@ -12,5 +12,8 @@ namespace BLL.Interface
     {
         SimplePathDTO GetOptimalPathBetweenVertices(Vertex from, Vertex to);
         List<SimplePathDTO> GetAllPathesBetweenVertices(Vertex from, Vertex to);
+
+        SimplePathDTO GetOptimalPathBetweenVertices(string from_id, string to_id);
+        List<SimplePathDTO> GetAllPathesBetweenVertices(string from_id, string to_id);
     }
 }

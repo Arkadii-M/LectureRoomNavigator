@@ -4,6 +4,7 @@ using DAL.Concrete;
 using DAL.Interface;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
+using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,12 +44,38 @@ builder.Services.AddSingleton<IPathManager, PathManager>();
 
 builder.Services.AddControllersWithViews();
 
-
+builder.Services.AddEndpointsApiExplorer(); // For swagger
+builder.Services.AddSwaggerGen(); //For swagger
+//builder.Services.AddSwaggerGen(options =>
+//{
+//    options.SwaggerDoc("v1", new OpenApiInfo
+//    {
+//        Version = "v1",
+//        Title = "ToDo API",
+//        Description = "An ASP.NET Core Web API for managing ToDo items",
+//        TermsOfService = new Uri("https://example.com/terms"),
+//        Contact = new OpenApiContact
+//        {
+//            Name = "Example Contact",
+//            Url = new Uri("https://example.com/contact")
+//        },
+//        License = new OpenApiLicense
+//        {
+//            Name = "Example License",
+//            Url = new Uri("https://example.com/license")
+//        }
+//    });
+//});
 var app = builder.Build();
+
+app.UseSwagger();//For swagger
+app.UseSwaggerUI();//For swagger
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    //app.UseSwagger();//For swagger
+    //app.UseSwaggerUI();//For swagger
 }
 
 
