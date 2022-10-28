@@ -29,7 +29,10 @@ using (var gremlinClient = new GremlinClient(
                 new GraphSON2Reader(),
                 new GraphSON2Writer(),
                 GremlinClient.GraphSON2MimeType))
-{ 
+{
+    LectureRoomDTO Room1 = new() { Id = "Room1", Floor = 1, Name = "111", Number = "111", NumberOfSeats = 60, X = 3.5, Y = 3.3 };
+    LectureRoomDTO Room2 = new() { Id = "Room2", Floor = 1, Name = "112", Number = "112", NumberOfSeats = 30, X = 2.5, Y = 3.8 };
+
 
     NavigationNodeDTO P1 = new() { Id = "P1", X = 3.35, Y = 24.9, Floor = 1 };
     NavigationNodeDTO P2 = new() { Id = "P2", X = 42.3, Y = 32.8, Floor = 2 };
@@ -55,8 +58,11 @@ using (var gremlinClient = new GremlinClient(
         Distance = 8.11
     };
 
+    NavigationEdgeDTO P3_Room1 = new() { Id = "P3_Room1",InVertexId = P3.Id,OutVertexId = Room1.Id,EdgeType = NavEdgeType.straight,Distance = 3.1};
+
     INavigationNodeDal VertDal = new NavigationNodeDal(gremlinClient);
     INavigationEdgeDal EdgeDal = new NavigationEdgeDal(gremlinClient);
+    ILectureRoomNodeDal RoomDal = new LectureRoomDal(gremlinClient);
 
     Console.Write("Drop all navigation nodes from database if exist...");
     if (VertDal.RemoveAllNavigationNodesFromDatabase()) Console.WriteLine("  OK"); else Console.WriteLine(" Fail");
@@ -64,12 +70,19 @@ using (var gremlinClient = new GremlinClient(
     Console.Write("Drop all navigation edges from database if exist...");
     if (EdgeDal.RemoveAllNavigationEdges()) Console.WriteLine("  OK"); else Console.WriteLine(" Fail");
 
+    Console.Write("Drop all lecture room nodes from database if exist...");
+    if (RoomDal.RemoveAllLectureRoomNodesFromDatabase()) Console.WriteLine("  OK"); else Console.WriteLine(" Fail");
+
     Console.WriteLine("Add nodes");
     VertDal.AddNavigationNode(P1);
     VertDal.AddNavigationNode(P2);
     VertDal.AddNavigationNode(P3);
     VertDal.AddNavigationNode(P4);
     VertDal.AddNavigationNode(P5);
+
+    Console.Write("Add lecture rooms...");
+    RoomDal.AddLectureRoomNode(Room1);
+    RoomDal.AddLectureRoomNode(Room2);
 
     Console.Write("Try to update node with id = 'P5'...");
     P5.X = 3.51;
@@ -82,7 +95,7 @@ using (var gremlinClient = new GremlinClient(
     Console.WriteLine("Add edges");
     EdgeDal.AddNavigationEdge(P1_P2);
     EdgeDal.AddNavigationEdge(P2_P3);
-
+    EdgeDal.AddNavigationEdge(P3_Room1);
 
     Console.WriteLine("Try to read vertices");
     var all_v = VertDal.GetAllNavigationNodes();
@@ -140,4 +153,21 @@ using (var gremlinClient = new GremlinClient(
     {
         Console.WriteLine($"Cost: {path.Item1}");
     }
+
+    var cost_pathes_nav_room = AlgDal.FindAllPathesWithCostBetweenVertices(P1, Room1);
+
+    Console.WriteLine("Print all weighted pathes cost from P1 to Room1:\n");
+    foreach (var path in cost_pathes_nav_room.PathesWithCost)
+    {
+        Console.WriteLine($"Cost: {path.Item1}");
+    }
+
+    var all_rooms = RoomDal.GetAllLectureRoomNodes();
+
+    Console.WriteLine("Print all lecture rooms:\n");
+    foreach (var room in all_rooms)
+    {
+        Console.WriteLine($"Id: {room.Id}\t\tNumber: {room.Number}\t\tNumberOfSeats: {room.NumberOfSeats}");
+    }
+
 }

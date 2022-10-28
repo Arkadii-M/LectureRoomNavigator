@@ -1,0 +1,19 @@
+<h1>Here will be map with some selectors</h1>
+Floor:  <select #floor (change)="setFloor(floor.value)">
+  <option value=0>Basement</option>
+  <option value=1>First</option>
+  <option value=2>Second</option>
+  <option value=3>Third</option>
+  <option value=4>Fourth</option>
+</select>
+
+Show lecture rooms: <select #show_room (change)="ShowRoom(show_room.value)">
+  <option value="true">Yes</option>
+  <option value="false">No</option>
+</select>
+Show navigation nodes: <select #show_nav (change)="ShowNavigation(show_nav.value)">
+  <option value="true">Yes</option>
+  <option value="false">No</option>
+</select>
+<button (click)="render_map()">Render map</button>
+<university-map></university-map>

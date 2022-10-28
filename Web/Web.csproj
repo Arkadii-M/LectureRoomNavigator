@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,15 +23,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\dto\lectrure-room.dto.ts" />
+    <None Remove="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <None Remove="ClientApp\src\app\map\map.component.ts" />
+    <None Remove="ClientApp\src\app\services\lecture-room.service.ts" />
+    <None Remove="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
+    <None Remove="ClientApp\src\app\user\map-view\map-view.component.ts" />
+    <None Remove="ClientApp\src\app\user\navigation\navigation.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\dto\lectrure-room.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\map\map.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\lecture-room.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\map-view\map-view.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\user\navigation\navigation.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\room-navigator\" />
+    <Folder Include="ClientApp\src\app\admin\crud\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj" />
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\DTO\DTO.csproj" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -29,6 +29,7 @@ namespace DAL.Concrete
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
                     .property('number',{node.Number})
                     .property('name',{node.Name})
+                    .property('seats',{node.NumberOfSeats})
 			";
 
 
@@ -100,6 +101,7 @@ namespace DAL.Concrete
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
                     .property('number',{node.Number})
                     .property('name',{node.Name})
+                    .property('seats',{node.NumberOfSeats})
 
 			";
 

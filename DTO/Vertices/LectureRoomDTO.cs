@@ -11,7 +11,7 @@ namespace DTO.Vertices
     {
         public string Number { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-
+        public uint NumberOfSeats { get; set; }
         public uint Floor { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
@@ -26,7 +26,8 @@ namespace DTO.Vertices
                 Type = dynamicObject["type"];
                 var props = dynamicObject["properties"];
                 Floor = Convert.ToUInt32(JToken.FromObject(props["floor"]).First["value"]);
-                Number = Convert.ToUInt32(JToken.FromObject(props["number"]).First["value"]);
+                Number = Convert.ToString(JToken.FromObject(props["number"]).First["value"]);
+                NumberOfSeats = Convert.ToUInt32(JToken.FromObject(props["seats"]).First["value"]);
                 Name = props["name"] != null ? Convert.ToString(JToken.FromObject(props["name"]).First["value"]) : string.Empty;
                 X = Convert.ToDouble(JToken.FromObject(props["x"]).First["value"]);
                 Y = Convert.ToDouble(JToken.FromObject(props["y"]).First["value"]);

@@ -7,17 +7,21 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { MapComponent } from './map/map.component'
+import { NavigationComponent } from './user/navigation/navigation.component'
+import { LectureRoomListComponent } from './user/lecture-room-list/lecture-room-list.component'
+import { MapViewComponent } from './user/map-view/map-view.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    MapComponent,
+    NavigationComponent,
+    LectureRoomListComponent,
+    MapViewComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -25,9 +29,10 @@ import { MapComponent } from './map/map.component'
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'map', component: MapComponent }
+      { path: 'university-map', component: MapComponent },
+      { path: 'room-navigation', component: NavigationComponent },
+      { path: 'lecture-room-list', component: LectureRoomListComponent },
+      { path: 'map-view', component: MapViewComponent }
     ])
   ],
   providers: [],
