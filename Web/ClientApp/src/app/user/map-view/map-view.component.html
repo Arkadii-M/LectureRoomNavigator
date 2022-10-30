@@ -1,11 +1,10 @@
 <h1>Here will be map with some selectors</h1>
-Floor:  <select #floor (change)="setFloor(floor.value)">
-  <option value=0>Basement</option>
-  <option value=1>First</option>
-  <option value=2>Second</option>
-  <option value=3>Third</option>
-  <option value=4>Fourth</option>
+Floor:
+<select #floor (change)="setFloor(floor.value)"
+        [(ngModel)]="current_floor">
+  <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
 </select>
+
 
 Show lecture rooms: <select #show_room (change)="ShowRoom(show_room.value)">
   <option value="true">Yes</option>

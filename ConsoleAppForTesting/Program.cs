@@ -30,8 +30,8 @@ using (var gremlinClient = new GremlinClient(
                 new GraphSON2Writer(),
                 GremlinClient.GraphSON2MimeType))
 {
-    LectureRoomDTO Room1 = new() { Id = "Room1", Floor = 1, Name = "111", Number = "111", NumberOfSeats = 60, X = 3.5, Y = 3.3 };
-    LectureRoomDTO Room2 = new() { Id = "Room2", Floor = 1, Name = "112", Number = "112", NumberOfSeats = 30, X = 2.5, Y = 3.8 };
+    LectureRoomDTO Room1 = new() { Id = "Room1", Floor = 1, Name = "111", Number = "111", NumberOfSeats = 60, X = 1254.501875, Y = 502.940478 };
+    LectureRoomDTO Room2 = new() { Id = "Room2", Floor = 1, Name = "112", Number = "112", NumberOfSeats = 30, X = 1356.318469, Y = 613.092833 };
 
 
     NavigationNodeDTO P1 = new() { Id = "P1", X = 3.35, Y = 24.9, Floor = 1 };
