@@ -14,7 +14,7 @@ namespace DAL.Concrete
 {
     public class NavigationNodeDal : INavigationNodeDal
     {
-        private static readonly string label = "navigation";
+        public static readonly string label = "navigation";
         private IGremlinClient _client;
         public NavigationNodeDal(IGremlinClient client)
         {
@@ -27,6 +27,7 @@ namespace DAL.Concrete
 				g.addV('{label}')
                     .property('id', '{node.Id}')
                     .property('floor', {node.Floor})
+                    .property('name','{node.Id}')
                     .property('x', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.X)})
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
 			";

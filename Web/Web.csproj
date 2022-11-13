@@ -23,20 +23,46 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\admin\lecture-rooms\lecture-room-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\navigation-edges\navigation-edge-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\navigation-nodes\navigation-node-add.component.ts" />
+    <None Remove="ClientApp\src\app\dto\edge.dto.ts" />
+    <None Remove="ClientApp\src\app\dto\faculty.dto.ts" />
     <None Remove="ClientApp\src\app\dto\lectrure-room.dto.ts" />
+    <None Remove="ClientApp\src\app\dto\map-element.ts" />
+    <None Remove="ClientApp\src\app\dto\navigation-edge.dto.ts" />
     <None Remove="ClientApp\src\app\dto\navigation-node.dto.ts" />
+    <None Remove="ClientApp\src\app\dto\simple-path.dto.ts" />
+    <None Remove="ClientApp\src\app\dto\vertex.dto.ts" />
     <None Remove="ClientApp\src\app\map\map.component.ts" />
+    <None Remove="ClientApp\src\app\services\faculty.service.ts" />
     <None Remove="ClientApp\src\app\services\lecture-room.service.ts" />
+    <None Remove="ClientApp\src\app\services\navigation-edge.service.ts" />
+    <None Remove="ClientApp\src\app\services\navigation-node.service.ts" />
+    <None Remove="ClientApp\src\app\services\path.service.ts" />
     <None Remove="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
     <None Remove="ClientApp\src\app\user\map-view\map-view.component.ts" />
     <None Remove="ClientApp\src\app\user\navigation\navigation.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\admin\lecture-rooms\lecture-room-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\navigation-edges\navigation-edge-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\navigation-nodes\navigation-node-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\edge.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\faculty.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\lectrure-room.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\map-element.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-edge.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-node.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\simple-path.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\vertex.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\map\map.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\faculty.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\lecture-room.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\navigation-edge.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\navigation-node.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\path.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\map-view\map-view.component.ts">
       <SubType>Code</SubType>

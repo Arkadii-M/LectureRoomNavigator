@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="column">
+    Floor:
+    <select #floor (change)="setFloor(floor.value)"
+            [(ngModel)]="current_floor">
+      <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
+    </select>
+    <h5>Navigation node coordinates:</h5>
+
+    <div>
+      <label>x:</label>
+      <input name="x" [(ngModel)]="to_add_node.x" />
+    </div>
+
+    <div>
+      <label>y:</label>
+      <input name="y" [(ngModel)]="to_add_node.y" />
+    </div>
+
+    <button (click)="sumbit()">Add navigation node</button>
+  </div>
+
+  <div class="column">
+    <university-map *ngIf="data_ready"
+                    (click_coordinates)="ChildEventHandler($event)"
+                    [NavigationNodesLayersData]="navigation_nodes"
+                    [CurrentFloor]="current_floor"
+                    [ShowNavigationNodes]="show_nodes"></university-map>
+
+  </div>
+</div>

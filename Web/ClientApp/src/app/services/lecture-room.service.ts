@@ -8,7 +8,11 @@ import { Observable } from 'rxjs';
 export class LectureRoomService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  getAllLecturesRooms(): Observable<LectureRoom[]>{
+  getAll(): Observable<LectureRoom[]>{
     return this.http.get<LectureRoom[]>(this.baseUrl + 'api/LectureRooms');
+  }
+
+  addOne(room: LectureRoom) {
+    return this.http.post(this.baseUrl + 'api/LectureRooms', room);
   }
 }

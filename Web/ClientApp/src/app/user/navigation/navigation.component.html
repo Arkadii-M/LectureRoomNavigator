@@ -1,5 +1,26 @@
-<h1>Here is navigation page. Map component:</h1>
-<button (click)="getCoordinates()">get last mouse click coordinates</button>
-<h4>x = {{x}},y = {{y}}</h4>
-<button (click)="setMapCenterOnCoordinates()">set map center in this (x,y)</button>
-<university-map></university-map>
+<div>
+  <label>Початкова точка (аудиторія чи віхід в університет):</label>
+  <input name="from" [(ngModel)]="from_id"/>
+</div>
+
+<div>
+  <label>Кінцева точка (аудиторія):</label>
+  <input name="to" [(ngModel)]="to_id" />
+</div>
+<div>
+  <button  (click)="find_and_show_path()">Прокласти маршрут</button>
+</div>
+<university-map *ngIf ="show_map"
+                [LectureRoomsLayersData]="lecture_rooms"
+                [NavigationNodesLayersData]="navigation_nodes"
+                [NavigationEdgesLayersData]="navigation_edges"
+                [ShowLectureRooms]="show_rooms"
+                [ShowNavigationNodes]="show_nav_nodes"
+                [ShowNavigationEdges]="show_nav_edges"
+                [CurrentFloor]="current_floor"
+                [CurrentNodeId]="current_node_id"></university-map>
+
+
+<div>
+  <button (click)="show_next()">Наступна точка</button>
+</div>

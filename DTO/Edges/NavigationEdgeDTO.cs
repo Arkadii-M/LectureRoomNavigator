@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DTO.Interface;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,7 +25,9 @@ namespace DTO.Edges
         //}
 
         public double Distance { get; set; }
-        public NavEdgeType EdgeType { get; set; } = NavEdgeType.straight;
+        public IMapElement? InElement { get; set; }
+        public IMapElement? OutElement { get; set; }
+        //public NavEdgeType EdgeType { get; set; } = NavEdgeType.straight;
 
         new public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
         {
@@ -43,7 +46,7 @@ namespace DTO.Edges
                 //Distance = Convert.ToDouble(JToken.FromObject(props["distance"]).First["value"]);
                 //EdgeType = Convert.ToInt32(JToken.FromObject(props["edge_type"]).First["value"]);
                 Distance = Convert.ToDouble(props["distance"]);
-                EdgeType = (NavEdgeType)Convert.ToInt32(props["edge_type"]);
+                //EdgeType = (NavEdgeType)Convert.ToInt32(props["edge_type"]);
             }
             catch (Exception e)
             {

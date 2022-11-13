@@ -9,6 +9,8 @@ const PROXY_CONFIG = [
       "/api/LectureRooms",
       "/api/Path",
       "/api/NavigationNodes",
+      "/api/NavigationEdges",
+      "/api/Faculties",
       "/swagger",
 
    ],

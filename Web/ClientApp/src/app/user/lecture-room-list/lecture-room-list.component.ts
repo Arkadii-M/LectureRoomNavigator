@@ -19,7 +19,7 @@ export class LectureRoomListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lectrue_room_service.getAllLecturesRooms().subscribe(results => {
+    this.lectrue_room_service.getAll().subscribe(results => {
       this.lecture_rooms = results;
     }, err => { console.error(err); });
   }

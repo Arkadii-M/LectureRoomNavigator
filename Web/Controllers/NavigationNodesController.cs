@@ -1,4 +1,5 @@
 ﻿using BLL.Interface;
+using DTO.Edges;
 using DTO.Vertices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,12 @@ namespace Web.Controllers
             return _navigationManager.GetAllNavigationNodes().AsEnumerable();
         }
 
+        //[HttpGet("byIds")]
+        //public IEnumerable<NavigationNodeDTO> GetByIds(string[] nav_ids)
+        //{
+        //    return _navigationManager.GetNavigationNodesByIds(nav_ids).AsEnumerable();
+        //}
+
         // GET api/<NavigationNodesController>/5
         [HttpGet("{id}")]
         public NavigationNodeDTO Get(string id)
@@ -37,8 +44,12 @@ namespace Web.Controllers
 
         // POST api/<NavigationNodesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] NavigationNodeDTO value)
         {
+             var res = _navigationManager.AddNavigationNode(value);
+            if (res.Id != String.Empty)
+                return Ok();
+            return BadRequest();
         }
 
         // PUT api/<NavigationNodesController>/5

@@ -1,4 +1,5 @@
-﻿using Gremlin.Net.Driver;
+﻿using DTO.Interface;
+using Gremlin.Net.Driver;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DTO.Vertices
 {
-    public class NavigationNodeDTO : Vertex, IDynamicParse
+    public class NavigationNodeDTO : Vertex, IDynamicParse,IMapElement
     {
         public uint Floor { get; set; }
         public double X { get; set; }

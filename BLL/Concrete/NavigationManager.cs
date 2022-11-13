@@ -14,10 +14,12 @@ namespace BLL.Concrete
     {
         private readonly INavigationNodeDal _node_navigator;
         private readonly INavigationEdgeDal _edge_navigator;
-        public NavigationManager(INavigationNodeDal node_navigator, INavigationEdgeDal edge_navigator)
+        private readonly ILectureRoomNodeDal _lectureRoomNodeDal;
+        public NavigationManager(INavigationNodeDal node_navigator, INavigationEdgeDal edge_navigator, ILectureRoomNodeDal lectureRoomNodeDal)
         {
             _node_navigator = node_navigator;
             _edge_navigator = edge_navigator;
+            _lectureRoomNodeDal = lectureRoomNodeDal;
         }
 
         public NavigationNodeDTO AddNavigationNode(NavigationNodeDTO node)
@@ -52,10 +54,12 @@ namespace BLL.Concrete
                                                                     InRange(filter.Y, y_lim)).ToList();
         }
 
-        public (NavigationNodeDTO, List<NavigationEdgeDTO>) GetNavigationNodeAndHisEdges(string Id)
+        public (NavigationNodeDTO, List<NavigationEdgeDTO>) GetNavigationNodeAndHisEdges(string Id, bool attach_elemnts = false)
         {
             NavigationNodeDTO node = _node_navigator.GetNavigationNodeById(Id);
             List<NavigationEdgeDTO> edges = _edge_navigator.GetNavigationEdgesFromNavigationNode(node);
+            if (attach_elemnts)
+                edges.ForEach(el => { this.AttachMapElements(ref el); });
             return (node, edges);
         }
 
@@ -79,14 +83,21 @@ namespace BLL.Concrete
             return _edge_navigator.AddNavigationEdge(edge);
         }
 
-        public NavigationEdgeDTO GetNavigationEdgeById(string id)
+        public NavigationEdgeDTO GetNavigationEdgeById(string id, bool attach_elemnts = false)
         {
-            return _edge_navigator.GetNavigationEdgeById(id);
+            var edge = _edge_navigator.GetNavigationEdgeById(id);
+            if (attach_elemnts)
+                this.AttachMapElements(ref edge);
+            return edge;
         }
 
-        public List<NavigationEdgeDTO> GetAllNavigationEdges()
+        public List<NavigationEdgeDTO> GetAllNavigationEdges(bool attach_elemnts = false)
         {
-            return _edge_navigator.GetAllNavigationEdges();
+            var edges = _edge_navigator.GetAllNavigationEdges();
+            if (attach_elemnts)
+                edges.ForEach(el => { this.AttachMapElements(ref el); });
+
+            return edges;
         }
 
         public bool RemoveNavigationEdge(NavigationEdgeDTO edge)
@@ -102,6 +113,38 @@ namespace BLL.Concrete
         public NavigationEdgeDTO UpdateNavigationEdge(NavigationEdgeDTO edge)
         {
             return _edge_navigator.UpdateNavigationEdge(edge);
+        }
+        private void AttachMapElements(ref NavigationEdgeDTO edge)
+        {
+            if(edge.InVertexId is not null)
+            {
+                if (edge.InVertexLable == "lectrue_room") { edge.InElement = this._lectureRoomNodeDal.GetLectureRoomNodeById(edge.InVertexId); }
+                else if (edge.InVertexLable == "navigation") { edge.InElement = this._node_navigator.GetNavigationNodeById(edge.InVertexId); }
+            }
+            if (edge.OutVertexId is not null)
+            {
+                if (edge.OutVertexLable == "lectrue_room") { edge.OutElement = this._lectureRoomNodeDal.GetLectureRoomNodeById(edge.OutVertexId); }
+                else if (edge.OutVertexLable == "navigation") { edge.OutElement = this._node_navigator.GetNavigationNodeById(edge.OutVertexId); }
+            }
+
+        }
+
+        public List<NavigationNodeDTO> GetNavigationNodesByIds(string[] ids)
+        {
+            List<NavigationNodeDTO> res = new List<NavigationNodeDTO>();
+            foreach (string id in ids)
+                res.Add(_node_navigator.GetNavigationNodeById(id));
+            return res;
+        }
+
+        public List<NavigationEdgeDTO> GetNavigationEdgesByIds(string[] ids, bool attach_elemnts = true)
+        {
+            List<NavigationEdgeDTO> res = new List<NavigationEdgeDTO>();
+            foreach (string id in ids)
+                res.Add(_edge_navigator.GetNavigationEdgeById(id));
+            if (attach_elemnts)
+                res.ForEach(el => { this.AttachMapElements(ref el); });
+            return res;
         }
     }
 }

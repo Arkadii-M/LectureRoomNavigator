@@ -1,4 +1,3 @@
-<h1>Here will be map with some selectors</h1>
 Floor:
 <select #floor (change)="setFloor(floor.value)"
         [(ngModel)]="current_floor">
@@ -6,13 +5,28 @@ Floor:
 </select>
 
 
-Show lecture rooms: <select #show_room (change)="ShowRoom(show_room.value)">
+Show lecture rooms: <select #show_room (change)="ShowRooms(show_room.value)">
   <option value="true">Yes</option>
   <option value="false">No</option>
 </select>
-Show navigation nodes: <select #show_nav (change)="ShowNavigation(show_nav.value)">
+Show navigation nodes: <select #show_nav_node (change)="ShowNavigationNodes(show_nav_node.value)">
   <option value="true">Yes</option>
   <option value="false">No</option>
 </select>
-<button (click)="render_map()">Render map</button>
-<university-map></university-map>
+
+Show navigation edges: <select #show_nav_edge (change)="ShowNavigationEdges(show_nav_edge.value)">
+  <option value="true">Yes</option>
+  <option value="false">No</option>
+</select>
+<!--<button (click)="render_map()">Render map</button>-->
+<h5>Click coordinates: {{click_coordinates}}</h5>
+<university-map *ngIf="data_loaded"
+                (click_coordinates)="ChildEventHandler($event)"
+                [LectureRoomsLayersData]="lecture_rooms"
+                [NavigationNodesLayersData]="navigation_nodes"
+                [NavigationEdgesLayersData]="navigation_edges"
+                [CurrentFloor]="current_floor"
+                [ShowLectureRooms]="show_rooms"
+                [ShowNavigationNodes]="show_nav_nodes"
+                [ShowNavigationEdges]="show_nav_edges"></university-map>
+<!--<university-map ></university-map>-->

@@ -4,6 +4,7 @@ using DAL.Concrete;
 using DAL.Interface;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,10 +34,18 @@ builder.Services.AddSingleton<IAlghorithmDal, AlghorithmDal>();
 builder.Services.AddSingleton<ILectureRoomNodeDal, LectureRoomDal>();
 builder.Services.AddSingleton<INavigationNodeDal, NavigationNodeDal>();
 builder.Services.AddSingleton<INavigationEdgeDal, NavigationEdgeDal>();
+builder.Services.AddSingleton<IFacultyDal, FacultyDal>();
+builder.Services.AddSingleton<IFacultyEdgeDal, FacultyEdgeDal>();
+builder.Services.AddSingleton<IRoleDal, RoleDal>();
+builder.Services.AddSingleton<IRoleEdgeDal, RoleEdgeDal>();
+builder.Services.AddSingleton<IUserDal, UserDal>();
+
 
 builder.Services.AddSingleton<INavigationManager, NavigationManager>();
 builder.Services.AddSingleton<ILectrueRoomManger, LectureRoomManger>();
 builder.Services.AddSingleton<IPathManager, PathManager>();
+builder.Services.AddSingleton<IFacultyManager, FacultyManager>();
+builder.Services.AddSingleton<IUserManager, UserManager>();
 
 
 builder.Services.AddControllersWithViews();

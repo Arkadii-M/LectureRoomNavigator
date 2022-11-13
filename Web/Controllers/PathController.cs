@@ -21,17 +21,17 @@ namespace Web.Controllers
             _logger = logger;
         }
         
-        [HttpGet("{from_id}/{to_id}")]
-        public IEnumerable<DTO.Vertices.Vertex> Get(string from_id,string to_id)
+        [HttpGet]
+        public SimplePathDTO Get(string from_id, string to_id)
         {
             try
             {
-                return _pathManager.GetOptimalPathBetweenVertices(from_id, to_id).VertexArray.AsEnumerable();
+                return _pathManager.GetOptimalPathBetweenVertices(from_id, to_id);
             }
             catch(Exception)
             {
                 _logger.LogInformation("No path between vetrices from {From id} to {To id}",from_id,to_id);
-                return Enumerable.Empty<DTO.Vertices.Vertex>();
+                return new SimplePathDTO();
             }
         }
     }

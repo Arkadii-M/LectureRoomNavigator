@@ -13,6 +13,7 @@ namespace BLL.Interface
 
         LectureRoomDTO GetLectureRoomById(string id);
         List<LectureRoomDTO> GetAllLectureRoom();
+        List<LectureRoomDTO> GetLectureRoomsbyIds(string[] ids);
         List<LectureRoomDTO> GetAllLectureRoomsOnFloor(uint floor);
 
         LectureRoomDTO UpdateLectureRoom(LectureRoomDTO node);

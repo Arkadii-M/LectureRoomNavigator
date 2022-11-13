@@ -25,6 +25,12 @@ namespace Web.Controllers
             return _lectrueRoomManger.GetAllLectureRoom().AsEnumerable();
         }
 
+        //[HttpGet("byIds")]
+        //public IEnumerable<DTO.Vertices.LectureRoomDTO> GetByIds([FromBody] List<string> nav_ids)
+        //{
+        //    return _lectrueRoomManger.GetLectureRoomsbyIds(nav_ids.ToArray()).AsEnumerable();
+        //}
+
         // GET api/<LectureRoomsController>/5
         [HttpGet("{id}")]
         public DTO.Vertices.LectureRoomDTO Get(string id)

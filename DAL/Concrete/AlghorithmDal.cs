@@ -41,11 +41,32 @@ namespace DAL.Concrete
 
         public SimplePathWithCostDTO FindAllPathesWithCostBetweenVertices(Vertex from, Vertex to)
         {
-            SimplePathWithCostDTO path_with_cost =new  SimplePathWithCostDTO();
+            //SimplePathWithCostDTO path_with_cost =new  SimplePathWithCostDTO();
+
+            //var gremlinCode = $@"
+            //                    g.V('{from.Id}')
+            //                    .repeat(bothE().otherV().simplePath())
+            //                    .until(has('id', '{to.Id}'))
+            //                    .path().as('path')
+            //                    .map(
+            //                        unfold()
+            //                        .coalesce(values('distance'),constant(0)).sum())
+            //                    .as('cost')
+            //                    .select('cost','path')";
+
+
+            //var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            //foreach (var weighted_path in result)
+            //{
+            //    var curr = new SimplePathDTO();
+            //    path_with_cost.TryParseDynamicToCurrent(weighted_path);
+            //}
+            //return path_with_cost;
+            SimplePathWithCostDTO path_with_cost = new SimplePathWithCostDTO();
 
             var gremlinCode = $@"
                                 g.V('{from.Id}')
-                                .repeat(bothE().otherV().simplePath())
+                                .repeat(bothE('distance').otherV().simplePath())
                                 .until(has('id', '{to.Id}'))
                                 .path().as('path')
                                 .map(
@@ -56,13 +77,14 @@ namespace DAL.Concrete
 
 
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
-            foreach (var weighted_path in result)
-            {
-                var curr = new SimplePathDTO();
-                path_with_cost.TryParseDynamicToCurrent(weighted_path);
-            }
+            path_with_cost.TryParseDynamicToCurrent(result);
+            //foreach (var weighted_path in result)
+            //{
+            //    var curr = new SimplePathDTO();
+            //    path_with_cost.TryParseDynamicToCurrent(weighted_path);
+            //}
             return path_with_cost;
-            
+
         }
     }
 }

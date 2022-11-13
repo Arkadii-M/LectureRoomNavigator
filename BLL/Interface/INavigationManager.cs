@@ -19,6 +19,7 @@ namespace BLL.Interface
 
 
         List<NavigationNodeDTO> GetAllNavigationNodes();
+        List<NavigationNodeDTO> GetNavigationNodesByIds(string[] ids);
         List<NavigationNodeDTO> GetAllNavigationNodesOnFloor(uint floor);
         List<NavigationNodeDTO> GetAllNavigationNodesOnFloorWithLimitOfCoordinates(
             uint floor,
@@ -28,15 +29,16 @@ namespace BLL.Interface
         // Navigation Edges
         NavigationEdgeDTO AddNavigationEdge(NavigationEdgeDTO edge);
 
-        NavigationEdgeDTO GetNavigationEdgeById(string id);
+        NavigationEdgeDTO GetNavigationEdgeById(string id,bool attach_elemnts = true);
 
-        List<NavigationEdgeDTO> GetAllNavigationEdges();
+        List<NavigationEdgeDTO> GetAllNavigationEdges(bool attach_elemnts = true);
+        List<NavigationEdgeDTO> GetNavigationEdgesByIds(string[] ids, bool attach_elemnts = true);
         bool RemoveNavigationEdge(NavigationEdgeDTO edge);
         bool RemoveNavigationEdgeById(string id);
 
         NavigationEdgeDTO UpdateNavigationEdge(NavigationEdgeDTO edge);
 
-        (NavigationNodeDTO, List<NavigationEdgeDTO>) GetNavigationNodeAndHisEdges(string Id);
+        (NavigationNodeDTO, List<NavigationEdgeDTO>) GetNavigationNodeAndHisEdges(string Id, bool attach_elemnts = true);
 
     }
 }

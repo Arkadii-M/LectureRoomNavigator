@@ -12,7 +12,7 @@ namespace DAL.Concrete
 {
     public class LectureRoomDal : ILectureRoomNodeDal
     {
-        private static readonly string label = "lectrue_room";
+        public static readonly string label = "lectrue_room";
         private IGremlinClient _client;
         public LectureRoomDal(IGremlinClient client)
         {
@@ -21,14 +21,23 @@ namespace DAL.Concrete
 
         public LectureRoomDTO AddLectureRoomNode(LectureRoomDTO node)
         {
+            //         var gremlinCode = $@"
+            //	g.addV('{label}')
+            //                 .property('id', '{node.Id}')
+            //                 .property('floor', {node.Floor})
+            //                 .property('x', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.X)})
+            //                 .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
+            //                 .property('number',{node.Number})
+            //                 .property('name',{node.Name})
+            //                 .property('seats',{node.NumberOfSeats})
+            //";
             var gremlinCode = $@"
 				g.addV('{label}')
                     .property('id', '{node.Id}')
                     .property('floor', {node.Floor})
                     .property('x', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.X)})
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
-                    .property('number',{node.Number})
-                    .property('name',{node.Name})
+                    .property('name','{node.Name}')
                     .property('seats',{node.NumberOfSeats})
 			";
 
@@ -99,11 +108,11 @@ namespace DAL.Concrete
 				g.V('{node.Id}')
                     .property('x', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.X)})
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
-                    .property('number',{node.Number})
                     .property('name',{node.Name})
                     .property('seats',{node.NumberOfSeats})
 
 			";
+
 
 
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;

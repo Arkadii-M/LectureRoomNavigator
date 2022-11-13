@@ -30,7 +30,6 @@ namespace DAL.Concrete
                         .to(g.V('{edge.OutVertexId}'))
                         .property('id','{edge.Id}')
                         .property('distance',{GremlinRequest.ConvertDoubleToIntegerExpNotation(edge.Distance)})
-                        .property('edge_type',{(int)edge.EdgeType})
 
 			";
 
@@ -114,7 +113,6 @@ namespace DAL.Concrete
             var gremlinCode = $@"
                         g.E('{edge.Id}')
                         .property('distance',{GremlinRequest.ConvertDoubleToIntegerExpNotation(edge.Distance)})
-                        .property('edge_type',{(int)edge.EdgeType})
 
 			";
 

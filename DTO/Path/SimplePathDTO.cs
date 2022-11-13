@@ -1,4 +1,5 @@
 ﻿using DTO.Edges;
+using DTO.Interface;
 using DTO.Vertices;
 using System;
 using System.Collections;
@@ -11,9 +12,16 @@ namespace DTO.Path
 {
     public class SimplePathDTO : IDynamicParse
     {
-        public List<DTO.Vertices.Vertex> VertexArray { get; set; } = new List<DTO.Vertices.Vertex>();
-        public List<DTO.Edges.Edge> EdgeArray { get; set; } = new List<Edge>();
-        public bool IsAnyPathExists => VertexArray.Any() && EdgeArray.Any();
+
+        public List<Tuple<string,string>> VerticesIds { get; set; } = new List<Tuple<string, string>>();
+        public List<string> EdgesIds { get; set; } = new List<string>();
+
+        public List<DTO.Vertices.NavigationNodeDTO> NavigationNodesArray { get; set; } = new List<NavigationNodeDTO>();
+        public List<DTO.Vertices.LectureRoomDTO> LectureRoomArray { get; set; } = new List<LectureRoomDTO>();
+        public List<DTO.Edges.NavigationEdgeDTO> NavigationEdgesArray { get; set; } = new List<NavigationEdgeDTO>();
+
+
+        public bool IsAnyPathExists => VerticesIds.Any() && EdgesIds.Any();
 
         public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
         {
@@ -27,24 +35,52 @@ namespace DTO.Path
                 {
                     if (v_e["type"] == "vertex")
                     {
-                        DTO.Vertices.Vertex vert = new DTO.Vertices.Vertex();
-                        vert.TryParseDynamicToCurrent(v_e);
-                        VertexArray.Add(vert);
+                        VerticesIds.Add(new Tuple<string, string>(v_e["label"], v_e["id"]));
                     }
-                    else if(v_e["type"] == "edge")
+                    else if (v_e["type"] == "edge")
                     {
-                        DTO.Edges.Edge edge = new DTO.Edges.Edge();
-                        edge.TryParseDynamicToCurrent(v_e);
-                        EdgeArray.Add(edge);
+                        EdgesIds.Add(v_e["id"]);
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 return false;
             }
             return true;
         }
+
+        //public bool TryParseDynamicToCurrent(dynamic? dynamicObject)
+        //{
+        //    if (dynamicObject == null) return false;
+
+        //    try
+        //    {
+        //        var vertices_and_adges = dynamicObject["objects"];
+
+        //        foreach (var v_e in vertices_and_adges)
+        //        {
+        //            if (v_e["type"] == "vertex")
+        //            {
+        //                DTO.Vertices.Vertex vert = new DTO.Vertices.Vertex();
+        //                vert.TryParseDynamicToCurrent(v_e);
+        //                VertexArray.Add(vert);
+        //            }
+        //            else if(v_e["type"] == "edge")
+        //            {
+        //                DTO.Edges.Edge edge = new DTO.Edges.Edge();
+        //                edge.TryParseDynamicToCurrent(v_e);
+        //                EdgeArray.Add(edge);
+        //            }
+        //        }
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        Console.WriteLine(e.ToString());
+        //        return false;
+        //    }
+        //    return true;
+        //}
     }
 }
