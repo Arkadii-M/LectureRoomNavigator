@@ -34,7 +34,10 @@
     <None Remove="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <None Remove="ClientApp\src\app\dto\simple-path.dto.ts" />
     <None Remove="ClientApp\src\app\dto\vertex.dto.ts" />
+    <None Remove="ClientApp\src\app\guards\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\guards\authorize-admin.guard.ts" />
     <None Remove="ClientApp\src\app\map\map.component.ts" />
+    <None Remove="ClientApp\src\app\services\auth.service.ts" />
     <None Remove="ClientApp\src\app\services\faculty.service.ts" />
     <None Remove="ClientApp\src\app\services\lecture-room.service.ts" />
     <None Remove="ClientApp\src\app\services\navigation-edge.service.ts" />
@@ -57,7 +60,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\simple-path.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\vertex.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\guards\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\guards\authorize-admin.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\map\map.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\faculty.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\lecture-room.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\navigation-edge.service.ts" />

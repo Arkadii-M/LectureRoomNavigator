@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -14,6 +14,8 @@ import { MapViewComponent } from './user/map-view/map-view.component'
 import { LectureRoomAddComponent } from './admin/lecture-rooms/lecture-room-add.component';
 import { NavigationNodeAddComponent } from './admin/navigation-nodes/navigation-node-add.component';
 import { NavigationEdgeComponent } from './admin/navigation-edges/navigation-edge-add.component';
+import { AuthenticationGuard } from './guards/auth.guard';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -35,16 +37,18 @@ import { NavigationEdgeComponent } from './admin/navigation-edges/navigation-edg
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'university-map', component: MapComponent },
+      // User pathes
+/*      { path: 'university-map', component: MapComponent },*/
       { path: 'room-navigation', component: NavigationComponent },
       { path: 'lecture-room-list', component: LectureRoomListComponent },
       { path: 'map-view', component: MapViewComponent },
-      { path: 'lecture-room-add', component: LectureRoomAddComponent },
-      { path: 'navigation-node-add', component: NavigationNodeAddComponent },
-      { path: 'navigation-edge-add', component: NavigationEdgeComponent }
+      // Admin pathes
+      { path: 'lecture-room-add', component: LectureRoomAddComponent, canActivate: [AuthenticationGuard] },
+      { path: 'navigation-node-add', component: NavigationNodeAddComponent, canActivate: [AuthenticationGuard] },
+      { path: 'navigation-edge-add', component: NavigationEdgeComponent, canActivate: [AuthenticationGuard] }
     ])
   ],
-  providers: [],
+  providers: [AuthenticationGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
