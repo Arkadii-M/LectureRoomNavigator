@@ -20,8 +20,6 @@ import { NavigationNode } from '../dto/navigation-node.dto';
 import { Collection } from 'ol';
 import { NavigationEdge } from '../dto/navigation-edge.dto';
 import Stroke from 'ol/style/Stroke';
-import { EventsKey } from 'ol/events';
-import BaseEvent from 'ol/events/Event';
 
 export enum Floor {
   Basement = 0,
@@ -177,11 +175,10 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   @Input()
-  set CurrentNodeId(id: string) {
-    this.current_node_id = id;
-    //this.current_center = point;
-    //if (this.map)
-    //  this.SetCenter(this.current_center);
+  set HighlightNodes(nodes_coordinates: [number, number][]) {
+    //console.log(nodes_coordinates);
+    //if (nodes_coordinates)
+    //  this.HighlightNode(nodes_coordinates[0]);
   }
 
   @Input()
@@ -217,13 +214,14 @@ export class MapComponent implements OnInit, OnChanges {
         if (this.map)
           this.SetFloorView(this._CurrentFloor);
 
-      if (propName == "CurrentNodeId") {
-        let prop: SimpleChange = changes[propName];
-        if (this.map) {
-          this.UnHighlightNode(prop.previousValue);
-          this.HighlightNode(prop.currentValue);
-        }
-      }
+      //if (propName == "HighlightNodes") {
+      //  let prop: SimpleChange = changes[propName];
+      //  if (this.map) {
+      //    if (!prop.firstChange)
+      //      this.UnHighlightNode(prop.previousValue);
+      //    this.HighlightNode(prop.currentValue);
+      //  }
+      //}
     }
     console.log("ngOnChanges");
   }
@@ -249,11 +247,14 @@ export class MapComponent implements OnInit, OnChanges {
   SetCenter(point: number[]) {
     this.map.getView().setCenter(point);
   }
-  UnHighlightNode(id: string) {
-
+  UnHighlightNode(coordinates: [number, number]) {
+    //this.NavigationNodesGroup.getLayerStatesArray().forEach((state, id) => { console.log(state.visible); })
   }
-  HighlightNode(id: string) {
+  HighlightNode(coordinates: [number, number]) {
+    //this.NavigationNodesGroup.getLayerStatesArray().forEach((state, id) => {
+    //  state.layer.getFeatures(coordinates).then((f) => console.log(f));
 
+    //})
   }
  
 
@@ -278,9 +279,9 @@ export class MapComponent implements OnInit, OnChanges {
         new VectorLayer({
           source: this.map_circles_source,
         }),
+        this.NavigationEdgeGroup,
         this.NavigationNodesGroup,
         this.LectureRoomGroup,
-        this.NavigationEdgeGroup
       ],
       target: 'map',
       view: new View({

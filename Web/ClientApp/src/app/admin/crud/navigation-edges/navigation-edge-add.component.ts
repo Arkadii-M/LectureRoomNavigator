@@ -1,14 +1,14 @@
 import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Floor, MapComponent } from '../../map/map.component';
-import { LectureRoomService } from '../../services/lecture-room.service'
-import { LectureRoom } from '../../dto/lectrure-room.dto'
+import { Floor, MapComponent } from '../../../map/map.component';
+import { LectureRoomService } from '../../../services/lecture-room.service'
+import { LectureRoom } from '../../../dto/lectrure-room.dto'
 import { v4 as uuidv4 } from 'uuid'
 
-import { NavigationNodeService } from '../../services/navigation-node.service';
-import { NavigationNode } from '../../dto/navigation-node.dto';
-import { NavigationEdgeService } from '../../services/navigation-edge.service';
-import { NavigationEdge } from '../../dto/navigation-edge.dto';
+import { NavigationNodeService } from '../../../services/navigation-node.service';
+import { NavigationNode } from '../../../dto/navigation-node.dto';
+import { NavigationEdgeService } from '../../../services/navigation-edge.service';
+import { NavigationEdge } from '../../../dto/navigation-edge.dto';
 
 @Component({
   selector: 'navigation-edge-add',

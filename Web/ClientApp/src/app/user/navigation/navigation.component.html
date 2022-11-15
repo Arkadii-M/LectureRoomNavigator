@@ -1,24 +1,33 @@
+
 <div>
-  <label>Початкова точка (аудиторія чи віхід в університет):</label>
-  <input name="from" [(ngModel)]="from_id"/>
+  <p-dropdown [options]="all_lecture_rooms"
+              [(ngModel)]="start_point"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              placeholder="Select start point"></p-dropdown>
 </div>
 
 <div>
-  <label>Кінцева точка (аудиторія):</label>
-  <input name="to" [(ngModel)]="to_id" />
+  <p-dropdown [options]="all_lecture_rooms"
+              [(ngModel)]="stop_point"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              placeholder="Select stop point"></p-dropdown>
 </div>
 <div>
   <button  (click)="find_and_show_path()">Прокласти маршрут</button>
 </div>
 <university-map *ngIf ="show_map"
-                [LectureRoomsLayersData]="lecture_rooms"
-                [NavigationNodesLayersData]="navigation_nodes"
-                [NavigationEdgesLayersData]="navigation_edges"
+                [LectureRoomsLayersData]="nav_lecture_rooms"
+                [NavigationNodesLayersData]="nav_navigation_nodes"
+                [NavigationEdgesLayersData]="nav_navigation_edges"
                 [ShowLectureRooms]="show_rooms"
                 [ShowNavigationNodes]="show_nav_nodes"
                 [ShowNavigationEdges]="show_nav_edges"
                 [CurrentFloor]="current_floor"
-                [CurrentNodeId]="current_node_id"></university-map>
+                [HighlightNodes]="current_highlight"></university-map>
 
 
 <div>

@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\admin\lecture-rooms\lecture-room-add.component.ts" />
-    <None Remove="ClientApp\src\app\admin\navigation-edges\navigation-edge-add.component.ts" />
-    <None Remove="ClientApp\src\app\admin\navigation-nodes\navigation-node-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\navigation-edges\navigation-edge-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-add.component.ts" />
     <None Remove="ClientApp\src\app\dto\edge.dto.ts" />
     <None Remove="ClientApp\src\app\dto\faculty.dto.ts" />
     <None Remove="ClientApp\src\app\dto\lectrure-room.dto.ts" />
@@ -49,9 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\admin\lecture-rooms\lecture-room-add.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\admin\navigation-edges\navigation-edge-add.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\admin\navigation-nodes\navigation-node-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-edges\navigation-edge-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-add.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\edge.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\faculty.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\lectrure-room.dto.ts" />
@@ -74,10 +74,6 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\user\navigation\navigation.component.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\admin\crud\" />
   </ItemGroup>
 
   <ItemGroup>

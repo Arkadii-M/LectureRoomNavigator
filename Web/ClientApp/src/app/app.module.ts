@@ -11,11 +11,17 @@ import { MapComponent } from './map/map.component'
 import { NavigationComponent } from './user/navigation/navigation.component'
 import { LectureRoomListComponent } from './user/lecture-room-list/lecture-room-list.component'
 import { MapViewComponent } from './user/map-view/map-view.component'
-import { LectureRoomAddComponent } from './admin/lecture-rooms/lecture-room-add.component';
-import { NavigationNodeAddComponent } from './admin/navigation-nodes/navigation-node-add.component';
-import { NavigationEdgeComponent } from './admin/navigation-edges/navigation-edge-add.component';
+import { LectureRoomAddComponent } from './admin/crud/lecture-rooms/lecture-room-add.component';
+import { NavigationNodeAddComponent } from './admin/crud/navigation-nodes/navigation-node-add.component';
+import { NavigationEdgeComponent } from './admin/crud/navigation-edges/navigation-edge-add.component';
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
+
+
+
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,9 @@ import { AuthService } from './services/auth.service';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    DropdownModule,
+    TableModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       // User pathes
@@ -46,7 +55,7 @@ import { AuthService } from './services/auth.service';
       { path: 'lecture-room-add', component: LectureRoomAddComponent, canActivate: [AuthenticationGuard] },
       { path: 'navigation-node-add', component: NavigationNodeAddComponent, canActivate: [AuthenticationGuard] },
       { path: 'navigation-edge-add', component: NavigationEdgeComponent, canActivate: [AuthenticationGuard] }
-    ])
+    ]),
   ],
   providers: [AuthenticationGuard, AuthService],
   bootstrap: [AppComponent]

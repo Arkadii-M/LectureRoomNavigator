@@ -1,19 +1,22 @@
-<h1>Here will be list of rooms with filtering</h1>
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="lecture_rooms">
-  <thead>
+<p-table
+         [value]="lecture_rooms"
+         sortField="floor"
+         [rows]="10"
+         [paginator]="true">
+  <ng-template pTemplate="header">
     <tr>
-      <th>Number</th>
-      <th>Number of seats</th>
-      <th>Floor</th>
-      <th>Faculty</th>
+      <th>Номер аудиторії</th>
+      <th>Кількість місць</th>
+      <th>Поверх</th>
+      <th>Факультет</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let room of lecture_rooms">
+  </ng-template>
+  <ng-template pTemplate="body" let-room>
+    <tr>
       <td>{{ room.name }}</td>
       <td>{{ room.numberOfSeats }}</td>
-      <td>{{ room.floor }}</td>
+      <td>{{ floor_to_name(room.floor) }}</td>
       <td>{{ room.faculty.name }}</td>
     </tr>
-  </tbody>
-</table>
+  </ng-template>
+</p-table>

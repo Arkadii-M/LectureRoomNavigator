@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MapComponent } from '../../map/map.component';
+import { Floor, MapComponent } from '../../map/map.component';
 import { LectureRoomService } from '../../services/lecture-room.service';
 import { LectureRoom } from '../../dto/lectrure-room.dto';
 
@@ -16,6 +16,13 @@ export class LectureRoomListComponent implements OnInit {
   private child: MapComponent | undefined;
 
   constructor(private lectrue_room_service: LectureRoomService) {
+    Floor.Basement.toString();
+    let fl = Floor[0];
+    console.log(fl);
+  }
+
+  floor_to_name(id: number) {
+    return Floor[id];
   }
 
   ngOnInit(): void {

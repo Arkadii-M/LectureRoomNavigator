@@ -1,11 +1,11 @@
 import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Floor, MapComponent } from '../../map/map.component';
-import { LectureRoomService } from '../../services/lecture-room.service'
-import { LectureRoom } from '../../dto/lectrure-room.dto'
+import { Floor, MapComponent } from '../../../map/map.component';
+import { LectureRoomService } from '../../../services/lecture-room.service'
+import { LectureRoom } from '../../../dto/lectrure-room.dto'
 import { v4 as uuidv4 } from 'uuid'
-import { Faculty } from '../../dto/faculty.dto';
-import { FacultyService } from '../../services/faculty.service';
+import { Faculty } from '../../../dto/faculty.dto';
+import { FacultyService } from '../../../services/faculty.service';
 
 @Component({
   selector: 'lecture-room-add',
