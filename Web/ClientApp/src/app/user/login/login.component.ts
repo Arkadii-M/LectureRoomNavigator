@@ -20,6 +20,6 @@ export class LoginComponent implements OnInit {
   }
 
   Login() {
-    this.auth_service.Login(this.username, this.password);
+    console.log(this.auth_service.Login(this.username, this.password));
   }
 }

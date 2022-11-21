@@ -5,6 +5,14 @@ using DAL.Interface;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,10 +65,51 @@ builder.Services.AddSwaggerGen();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
+// Add options for JWT
+builder.Services.AddAuthorization();
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidIssuer = Environment.GetEnvironmentVariable("JWT_AUTH_ISSUER") ?? throw new ArgumentException("Missing env var: AUTH_ISSUER"),
+
+//            ValidateAudience = true,
+//            ValidAudience = Environment.GetEnvironmentVariable("JWT_AUTH_AUDIENCE") ?? throw new ArgumentException("Missing env var: AUTH_AUDIENCE"),
+
+//            ValidateLifetime = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(
+//                Encoding.UTF8.GetBytes(
+//                    Environment.GetEnvironmentVariable("JWT_AUTH_KEY") ?? throw new ArgumentException("Missing env var: AUTH_AUDIENCE")
+//                    )),
+//            ValidateIssuerSigningKey = true,
+//        };
+//    });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer =AuthHelper.Issuer,
+
+            ValidateAudience = true,
+            ValidAudience = AuthHelper.Audience,
+
+            ValidateLifetime = true,
+            IssuerSigningKey = AuthHelper.GetSymmetricSecurityKey(),
+            ValidateIssuerSigningKey = true,
+        };
+    });
 var app = builder.Build();
 
 app.UseSwagger();//For swagger
 app.UseSwaggerUI();//For swagger
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

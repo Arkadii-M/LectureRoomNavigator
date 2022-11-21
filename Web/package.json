@@ -2,6 +2,7 @@
   "dependencies": {
     "@angular/animations": "^14.2.10",
     "@angular/cdk": "^14.2.7",
+    "@auth0/angular-jwt": "^5.1.0",
     "ol": "^7.1.0",
     "primeicons": "^6.0.1",
     "primeng": "^14.2.1",

@@ -19,7 +19,7 @@ import { LectureRoomEditComponent } from './admin/crud/lecture-rooms/lecture-roo
 import { NavigationNodeEditComponent } from './admin/crud/navigation-nodes/navigation-node-edit.component'
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
-
+import { LoginComponent } from './user/login/login.component'
 
 
 
@@ -28,21 +28,29 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 
 
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
     MapComponent,
+    // User components
     NavigationComponent,
     LectureRoomListComponent,
     MapViewComponent,
-    LectureRoomAddComponent,
-    NavigationNodeAddComponent,
-    NavigationEdgeComponent,
+    LoginComponent,
+    // Admin components
     AdminPanelComponent,
+    //
+    LectureRoomAddComponent,
     LectureRoomEditComponent,
-    NavigationNodeEditComponent
+    //
+    NavigationNodeAddComponent,
+    NavigationNodeEditComponent,
+    //
+    NavigationEdgeComponent,
 
   ],
   imports: [
@@ -59,7 +67,7 @@ import { TableModule } from 'primeng/table';
       { path: 'room-navigation', component: NavigationComponent },
       { path: 'lecture-room-list', component: LectureRoomListComponent },
       { path: 'map-view', component: MapViewComponent },
-
+      { path: 'login', component: LoginComponent },
       {
         path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthenticationGuard],
         children: [
@@ -74,7 +82,7 @@ import { TableModule } from 'primeng/table';
       },
     ]),
   ],
-  providers: [AuthenticationGuard, AuthService],
+  providers: [AuthenticationGuard, AuthService, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
