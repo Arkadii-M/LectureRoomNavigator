@@ -23,9 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\admin\admin-panel.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-edit.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\navigation-edges\navigation-edge-add.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-add.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-edit.component.ts" />
     <None Remove="ClientApp\src\app\dto\edge.dto.ts" />
     <None Remove="ClientApp\src\app\dto\faculty.dto.ts" />
     <None Remove="ClientApp\src\app\dto\lectrure-room.dto.ts" />
@@ -44,13 +47,20 @@
     <None Remove="ClientApp\src\app\services\navigation-node.service.ts" />
     <None Remove="ClientApp\src\app\services\path.service.ts" />
     <None Remove="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
+    <None Remove="ClientApp\src\app\user\login\login.component.ts" />
     <None Remove="ClientApp\src\app\user\map-view\map-view.component.ts" />
     <None Remove="ClientApp\src\app\user\navigation\navigation.component.ts" />
+    <None Remove="ClientApp\src\app\user\register\register.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\admin\admin-panel\admin-panel.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-edges\navigation-edge-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-edit.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-add.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\edge.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\faculty.dto.ts" />
@@ -70,10 +80,14 @@
     <TypeScriptCompile Include="ClientApp\src\app\services\navigation-node.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\path.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\login\login.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\user\map-view\map-view.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\user\navigation\navigation.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\register\register.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

@@ -108,7 +108,6 @@ namespace DAL.Concrete
 				g.V('{node.Id}')
                     .property('x', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.X)})
                     .property('y', {GremlinRequest.ConvertDoubleToIntegerExpNotation(node.Y)})
-                    .property('name',{node.Name})
                     .property('seats',{node.NumberOfSeats})
 
 			";

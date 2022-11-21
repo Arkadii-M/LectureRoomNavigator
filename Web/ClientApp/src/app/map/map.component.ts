@@ -3,7 +3,7 @@ import Map from 'ol/Map';
 import ImageLayer from 'ol/layer/Image';
 import Static from "ol/source/ImageStatic";
 import Projection from 'ol/proj/Projection';
-import { getCenter } from 'ol/extent';
+import { boundingExtent, containsCoordinate, getCenter } from 'ol/extent';
 
 import View from 'ol/View';
 import VectorSource from 'ol/source/Vector';
@@ -11,7 +11,7 @@ import VectorLayer from 'ol/layer/Vector';
 import Feature from 'ol/Feature';
 import { Circle, Geometry, LineString, Point } from 'ol/geom';
 import LayerGroup from 'ol/layer/Group';
-import Style from 'ol/style/Style';
+import Style, { StyleLike } from 'ol/style/Style';
 import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 
@@ -20,6 +20,8 @@ import { NavigationNode } from '../dto/navigation-node.dto';
 import { Collection } from 'ol';
 import { NavigationEdge } from '../dto/navigation-edge.dto';
 import Stroke from 'ol/style/Stroke';
+import BaseLayer from 'ol/layer/Base';
+import { Coordinate } from 'ol/coordinate';
 
 export enum Floor {
   Basement = 0,
@@ -27,6 +29,13 @@ export enum Floor {
   SecondFloor,
   ThirdFloor,
   FourhFloor
+}
+
+export enum NodeStyle {
+  classic = 'classic',
+  dashed = 'dashed',
+  selected = 'selected'
+
 }
 
 @Component({
@@ -42,9 +51,8 @@ export class MapComponent implements OnInit, OnChanges {
 
   readonly NumberOfFloors: number = 5;
   private _CurrentFloor: Floor = Floor.FirstFloor;
-  private current_node_id: string = '';
-  /*  private map_size = [0, 0, 2044.16, 1478.08];*/
   private map_size = [0, 0, 2876, 2208];
+  private current_map_center: Coordinate = getCenter(this.map_size);
 
   private FloorsImagesGroup!: LayerGroup;
   private NavigationNodesGroup: LayerGroup = new LayerGroup({});
@@ -59,28 +67,50 @@ export class MapComponent implements OnInit, OnChanges {
     });
 
     let curr_feature = new Feature({ geometry: new Circle([room.x, room.y], 15) });
-    curr_feature.setStyle(curr_style);
+
     curr_feature.setId(room.id); // attach id
+    curr_feature.set('name', room.name);
+    curr_feature.set('style', NodeStyle.classic);
+    curr_feature.setStyle((feature, resolution) => {
+      let base_style = new Style({
+        fill: new Fill({ color: 'rgba(185,255,200,0.9)' }),
+        text: new Text({ text: feature.get('name'), scale: 1.3 })
+      });
+      switch (feature.get('style')) {
+        case NodeStyle.selected:
+          base_style.setStroke(new Stroke({ color: 'rgba(18,237,245,1.0)', width: 3 }))
+          break;
+      }
+      return base_style;
+    });
     return curr_feature;
   }
 
   private CreateNavigationNodeFeature(node: NavigationNode) {
-    let curr_style = new Style({
-      fill: new Fill({ color: 'rgba(255,35,44,0.9)' }),
-      //stroke: new Stroke({ color: 'rgba(255,255,44,0.9)', width: 4 }),
-      //hitDetectionRenderer: function (coordinate, state) {  }
-      /*      text: new Text({ text: node.id, scale: 1 })*/
+    let curr_feature = new Feature({ geometry: new Circle([node.x, node.y], 10)});
+
+    curr_feature.set('style', NodeStyle.classic);
+    curr_feature.setId(node.id); // attach id
+    curr_feature.setStyle((feature, resolution) => {
+      let base_style = new Style({ fill: new Fill({ color: 'rgba(255,35,44,0.9)' }) });
+      switch (feature.get('style')) {
+        case NodeStyle.dashed:
+          base_style.setStroke(new Stroke({ color: 'rgba(0,0,255,1.0)', width: 4, lineDash: [1, 6] }));
+          break;
+        case NodeStyle.selected:
+          base_style.setStroke(new Stroke({ color: 'rgba(18,237,245,1.0)', width: 3 }))
+          break;
+      }
+      return base_style;
     });
 
-    let curr_feature = new Feature({ geometry: new Circle([node.x, node.y], 10) });
-    curr_feature.setStyle(curr_style);
-    curr_feature.setId(node.id); // attach id
+
     return curr_feature;
   }
 
   private CreateEdgeFeature(edge: NavigationEdge) {
     let curr_style = new Style({
-      stroke: new Stroke({ color: 'rgba(0,0,0,1.0)', width: 3 }),
+      stroke: new Stroke({ color: 'rgba(0,0,0,1.0)', width: 3, lineDash: [4, 8] }),
     });
 
     if (edge.inElement && edge.outElement) {
@@ -133,7 +163,7 @@ export class MapComponent implements OnInit, OnChanges {
         layers.push(new VectorLayer({
           source: curr_source,
           visible: false,
-          properties: { floor: i, type: this.navigation_layer_lable }
+          properties: { floor: i, type: this.navigation_layer_lable },
         }));
         curr_source.changed();
       }
@@ -173,12 +203,12 @@ export class MapComponent implements OnInit, OnChanges {
     if (this.map)
       this.SetFloorView(this._CurrentFloor);
   }
-
   @Input()
-  set HighlightNodes(nodes_coordinates: [number, number][]) {
-    //console.log(nodes_coordinates);
-    //if (nodes_coordinates)
-    //  this.HighlightNode(nodes_coordinates[0]);
+  set HighlightNodes(id_style: [string, NodeStyle][]) {
+
+    if (id_style) {
+      id_style.forEach((val) => { this.HighlightNode(val); });
+    }
   }
 
   @Input()
@@ -194,6 +224,19 @@ export class MapComponent implements OnInit, OnChanges {
   @Input()
   set ShowNavigationEdges(value: boolean) {
     this.NavigationEdgeGroup.setVisible(value);
+  }
+
+  @Input()
+  set SetCenterIfNotInView(value: [number, number]) {
+    this.current_map_center = value;
+    if (this.map) {
+      //if (!containsCoordinate(this.map.getView().calculateExtent(this.map.getSize()), this.current_map_center))
+      //  this.map.getView().setCenter(this.current_map_center);
+      this.map.getView().animate({
+        center: this.current_map_center,
+        duration: 500
+      })
+    }
   }
 
   @Output() click_coordinates: EventEmitter<number[]> = new EventEmitter<number[]>();
@@ -214,16 +257,17 @@ export class MapComponent implements OnInit, OnChanges {
         if (this.map)
           this.SetFloorView(this._CurrentFloor);
 
-      //if (propName == "HighlightNodes") {
-      //  let prop: SimpleChange = changes[propName];
-      //  if (this.map) {
-      //    if (!prop.firstChange)
-      //      this.UnHighlightNode(prop.previousValue);
-      //    this.HighlightNode(prop.currentValue);
-      //  }
-      //}
+      if (propName == "HighlightNodes") {
+        let prop: SimpleChange = changes[propName];
+        if (this.map) {
+          if (!prop.firstChange) {
+            let prev_h = prop.previousValue as [string, NodeStyle][];
+            let curr_ids: string[] = (prop.currentValue as [string, NodeStyle][]).map((val) => { return val[0] });
+            prev_h.filter((val) => { return !curr_ids.some(curr_id => curr_id === val[0]) }).forEach((val) => { this.UnHighlightNode(val); })
+          }
+        }
+      }
     }
-    console.log("ngOnChanges");
   }
 
   private map_circles_source = new VectorSource();
@@ -247,14 +291,28 @@ export class MapComponent implements OnInit, OnChanges {
   SetCenter(point: number[]) {
     this.map.getView().setCenter(point);
   }
-  UnHighlightNode(coordinates: [number, number]) {
-    //this.NavigationNodesGroup.getLayerStatesArray().forEach((state, id) => { console.log(state.visible); })
-  }
-  HighlightNode(coordinates: [number, number]) {
-    //this.NavigationNodesGroup.getLayerStatesArray().forEach((state, id) => {
-    //  state.layer.getFeatures(coordinates).then((f) => console.log(f));
 
-    //})
+  setFeatureStyle(layers: Collection<BaseLayer>, id_style: [string, NodeStyle]) {
+    layers.forEach((l) => {
+      let curr_layer = l as VectorLayer<VectorSource>;
+      let curr_feature = curr_layer.getSource()?.getFeatureById(id_style[0]);
+
+      if (curr_feature) {
+        curr_feature.set('style', id_style[1])
+        curr_feature.changed();
+      }
+    })
+  }
+
+  UnHighlightNode(id_style: [string, NodeStyle]) {
+    id_style[1] = NodeStyle.classic;
+    this.setFeatureStyle(this.NavigationNodesGroup.getLayers(), id_style);
+    this.setFeatureStyle(this.LectureRoomGroup.getLayers(), id_style);
+  }
+
+  HighlightNode(id_style: [string, NodeStyle]) {
+    this.setFeatureStyle(this.NavigationNodesGroup.getLayers(), id_style);
+    this.setFeatureStyle(this.LectureRoomGroup.getLayers(), id_style);
   }
  
 
@@ -291,8 +349,8 @@ export class MapComponent implements OnInit, OnChanges {
           extent: [0, 0, 500,500],
         }),
         maxZoom: 2,
-        center: getCenter(this.map_size),
-        zoom: 0,
+        center: this.current_map_center,
+        zoom: 1,
       })
     });
     this.map.on('click', this.OnMapClickGetCoordinates.bind(this));

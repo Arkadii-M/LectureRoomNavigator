@@ -12,8 +12,6 @@ import { LectureRoom } from '../../dto/lectrure-room.dto';
 })
 export class LectureRoomListComponent implements OnInit {
   public lecture_rooms: LectureRoom[] = [];
-  @ViewChild(MapComponent, { static: false })
-  private child: MapComponent | undefined;
 
   constructor(private lectrue_room_service: LectureRoomService) {
     Floor.Basement.toString();

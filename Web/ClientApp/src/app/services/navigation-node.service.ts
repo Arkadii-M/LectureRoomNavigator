@@ -14,5 +14,12 @@ export class NavigationNodeService {
   addOne(node: NavigationNode) {
     return this.http.post(this.baseUrl + 'api/NavigationNodes',node);
   }
+  Update(node: NavigationNode) {
+    return this.http.put(this.baseUrl + 'api/NavigationNodes', node);
+  }
+  Delete(node_id: string) {
+    let httpParams = new HttpParams().set('id', node_id);
+    return this.http.delete(this.baseUrl + 'api/NavigationNodes', { params: httpParams });
+  }
 
 }

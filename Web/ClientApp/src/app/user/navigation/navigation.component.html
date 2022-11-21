@@ -27,9 +27,11 @@
                 [ShowNavigationNodes]="show_nav_nodes"
                 [ShowNavigationEdges]="show_nav_edges"
                 [CurrentFloor]="current_floor"
-                [HighlightNodes]="current_highlight"></university-map>
+                [HighlightNodes]="current_highlight"
+                [SetCenterIfNotInView]="current_coordinates"></university-map>
 
 
-<div>
+<div *ngIf="show_map">
   <button (click)="show_next()">Наступна точка</button>
+  <button (click)="show_prev()">Попередня точка</button>
 </div>

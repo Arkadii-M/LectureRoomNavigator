@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="column">
+    Floor:
+    <select #floor (change)="setFloor(floor.value)"
+            [(ngModel)]="current_floor">
+      <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
+    </select>
+    <h5>Lecture room coordinates:</h5>
+
+    <div>
+      <label>x:</label>
+      <input name="x" [(ngModel)]="to_update_room.x" />
+    </div>
+
+    <div>
+      <label>y:</label>
+      <input name="y" [(ngModel)]="to_update_room.y" />
+    </div>
+
+    <div>
+      <label>Number:</label>
+      <input name="lr_name" [(ngModel)]="to_update_room.name" readonly/>
+    </div>
+
+    <div>
+      <label>Number of seats:</label>
+      <input name="numOfSeats" [(ngModel)]="to_update_room.numberOfSeats" />
+    </div>
+    <div>
+      Faculty:
+      <select #faculty (change)="setFaculty(faculty)"
+              [(ngModel)]="faculties">
+        <option [value]="item" *ngFor="let item of faculties">{{item.name}}</option>
+      </select>
+    </div>
+
+    <button (click)="update()">Update</button>
+    <button (click)="delete()">Delete</button>
+  </div>
+
+  <div class="column">
+    <university-map *ngIf="data_ready"
+                    (on_room_click)="ClickOnRoomNodeHandle($event)"
+                    [LectureRoomsLayersData]="lecture_rooms"
+                    [CurrentFloor]="current_floor"
+                    [ShowLectureRooms]="show_rooms"></university-map>
+
+  </div>
+</div>

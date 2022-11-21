@@ -14,14 +14,19 @@ import { MapViewComponent } from './user/map-view/map-view.component'
 import { LectureRoomAddComponent } from './admin/crud/lecture-rooms/lecture-room-add.component';
 import { NavigationNodeAddComponent } from './admin/crud/navigation-nodes/navigation-node-add.component';
 import { NavigationEdgeComponent } from './admin/crud/navigation-edges/navigation-edge-add.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component'
+import { LectureRoomEditComponent } from './admin/crud/lecture-rooms/lecture-room-edit.component'
+import { NavigationNodeEditComponent } from './admin/crud/navigation-nodes/navigation-node-edit.component'
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
+
 
 
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +39,10 @@ import { TableModule } from 'primeng/table';
     MapViewComponent,
     LectureRoomAddComponent,
     NavigationNodeAddComponent,
-    NavigationEdgeComponent
+    NavigationEdgeComponent,
+    AdminPanelComponent,
+    LectureRoomEditComponent,
+    NavigationNodeEditComponent
 
   ],
   imports: [
@@ -51,10 +59,19 @@ import { TableModule } from 'primeng/table';
       { path: 'room-navigation', component: NavigationComponent },
       { path: 'lecture-room-list', component: LectureRoomListComponent },
       { path: 'map-view', component: MapViewComponent },
-      // Admin pathes
-      { path: 'lecture-room-add', component: LectureRoomAddComponent, canActivate: [AuthenticationGuard] },
-      { path: 'navigation-node-add', component: NavigationNodeAddComponent, canActivate: [AuthenticationGuard] },
-      { path: 'navigation-edge-add', component: NavigationEdgeComponent, canActivate: [AuthenticationGuard] }
+
+      {
+        path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthenticationGuard],
+        children: [
+          { path: 'lecture-room-add', component: LectureRoomAddComponent, },
+          { path: 'lecture-room-edit', component: LectureRoomEditComponent, },
+
+          { path: 'navigation-node-add', component: NavigationNodeAddComponent, },
+          { path: 'navigation-node-edit', component: NavigationNodeEditComponent, },
+
+          { path: 'navigation-edge-add', component: NavigationEdgeComponent, },
+        ]
+      },
     ]),
   ],
   providers: [AuthenticationGuard, AuthService],

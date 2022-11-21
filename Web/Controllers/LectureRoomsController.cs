@@ -46,14 +46,15 @@ namespace Web.Controllers
         }
 
         // PUT api/<LectureRoomsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] LectureRoomDTO value)
         {
+            _lectrueRoomManger.UpdateLectureRoom(value);
         }
 
         // DELETE api/<LectureRoomsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete]
+        public void Delete([FromQuery] string id)
         {
             _lectrueRoomManger.RemoveLectureRoomById(id);
         }

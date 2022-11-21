@@ -5,16 +5,6 @@
             [(ngModel)]="current_floor">
       <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
     </select>
-
-    <!--<div>
-    <label>First:</label>
-    <input name="x" [(ngModel)]="to_add_node.x" />
-  </div>
-
-  <div>
-    <label>Second:</label>
-    <input name="y" [(ngModel)]="to_add_node.y" />
-  </div>-->
     <div>
       <label>First ID:</label>
       <input name="first" [ngModel]="to_add_edge.inVertexId" />
@@ -24,7 +14,7 @@
       <input name="second" [ngModel]="to_add_edge.outVertexId" />
     </div>
     <div>
-      <label>Disttance: </label>
+      <label>Distance: </label>
       <input name="distance" [(ngModel)]="to_add_edge.distance" />
     </div>
 
@@ -32,7 +22,7 @@
   </div>
 
   <div class="column">
-    <university-map
+    <university-map *ngIf="show_map"
                     [LectureRoomsLayersData]="lecture_rooms"
                     [NavigationNodesLayersData]="navigation_nodes"
                     [NavigationEdgesLayersData]="navigation_edges"
@@ -41,7 +31,8 @@
                     [ShowNavigationEdges]="show_edges"
                     (on_navigation_click)="ClickNavigationNodeHandler($event)"
                     (on_room_click)="ClickLectureRoomHandler($event)"
-                    [CurrentFloor]="current_floor"></university-map>
+                    [CurrentFloor]="current_floor"
+                    [HighlightNodes]="current_highlight"></university-map>
 
   </div>
 </div>

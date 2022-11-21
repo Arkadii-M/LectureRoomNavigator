@@ -1,5 +1,5 @@
 import { Injectable,Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { LectureRoom } from '../dto/lectrure-room.dto';
 import { Observable } from 'rxjs';
 
@@ -14,5 +14,12 @@ export class LectureRoomService {
 
   addOne(room: LectureRoom) {
     return this.http.post(this.baseUrl + 'api/LectureRooms', room);
+  }
+  Update(room: LectureRoom) {
+    return this.http.put(this.baseUrl + 'api/LectureRooms', room);
+  }
+  Delete(room_id: string) {
+    let httpParams = new HttpParams().set('id', room_id);
+    return this.http.delete(this.baseUrl + 'api/LectureRooms', { params: httpParams });
   }
 }
