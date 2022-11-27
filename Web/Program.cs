@@ -24,6 +24,7 @@ string PrimaryKey = Environment.GetEnvironmentVariable("COSMOS_DB_PRIMARY_KEY") 
 string Database = Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME") ?? throw new ArgumentException("Missing env var: Database name");
 string Container = Environment.GetEnvironmentVariable("COSMOS_DB_CONTAINER_NAME") ?? throw new ArgumentException("Missing env var: Container name");
 int Port = Convert.ToInt32(Environment.GetEnvironmentVariable("COSMOS_DB_PORT") ?? throw new ArgumentException("Missing env var: Port"));
+//int Port = 8081;
 string containerLink = "/dbs/" + Database + "/colls/" + Container;
 
 var gremlinServer = new GremlinServer(Host, Port, enableSsl: EnableSSL,
@@ -107,8 +108,6 @@ var app = builder.Build();
 app.UseSwagger();//For swagger
 app.UseSwaggerUI();//For swagger
 
-app.UseAuthentication();
-app.UseAuthorization();
 
 
 // Configure the HTTP request pipeline.
@@ -121,6 +120,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+//
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.MapControllerRoute(

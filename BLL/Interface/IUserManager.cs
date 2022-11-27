@@ -12,6 +12,7 @@ namespace BLL.Interface
         UserDTO AddUser(UserDTO user);
         List<UserDTO> GetAllUsers();
         UserDTO GetUser(string username);
+        List<RoleDTO> GetUserRoles(string username);
         
         bool LoginUser(UserDTO user);
     }

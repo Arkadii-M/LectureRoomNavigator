@@ -1,5 +1,6 @@
 ﻿using BLL.Concrete;
 using BLL.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -37,6 +37,11 @@ namespace BLL.Concrete
             return user;
         }
 
+        public List<RoleDTO> GetUserRoles(string username)
+        {
+            return this.GetUser(username).Roles;
+        }
+
         public bool LoginUser(UserDTO user)
         {
             return _userDal.LoginUser(user);

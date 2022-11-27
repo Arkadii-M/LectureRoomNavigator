@@ -21,6 +21,7 @@ namespace Web.Helpers
             }
         }
         public static readonly bool VailidateLifetime = true;
+        public static readonly int TokenLifetime= 10;
         private static string SigningKey
         {
             get

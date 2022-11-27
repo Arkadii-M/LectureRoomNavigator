@@ -25,7 +25,7 @@ namespace DAL.Concrete
             var gremlinCode = $@"
 				g.addV('{label}')
                     .property('id', '{role.Id}')
-                    .property('name',{role.Name})
+                    .property('name','{role.Name}')
 			";
 
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;

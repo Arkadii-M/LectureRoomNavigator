@@ -26,7 +26,7 @@ namespace DAL.Concrete
 				g.addV('{label}')
                     .property('id', '{user.Id}')
                     .property('name','{user.UserName}')
-                    .property('passowrd','{user.PasswordHash}')
+                    .property('password','{user.PasswordHashStr}')
 			";
 
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
@@ -91,7 +91,7 @@ namespace DAL.Concrete
             var gremlinCode = $@"
 				g.V('{user.Id}')
                     .property('name','{user.UserName}')
-                    .property('passowrd','{user.PasswordHash}')
+                    .property('password','{user.PasswordHashStr}')
 			";
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
             user.TryParseDynamicToCurrent(result.SingleOrDefault());

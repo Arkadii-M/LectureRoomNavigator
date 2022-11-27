@@ -9,8 +9,6 @@ using System.Xml.Linq;
 
 Console.WriteLine("Starting...");
 
-//var user = new UserDTO("user", "pwd");
-
 const bool EnableSSL = false;
 
 string Host = Environment.GetEnvironmentVariable("COSMOS_DB_HOST") ?? throw new ArgumentException("Missing env var: Host");
@@ -176,7 +174,6 @@ var gremlinServer = new GremlinServer(Host, Port, enableSsl: EnableSSL,
 
 //}
 
-
 using (var gremlinClient = new GremlinClient(
                 gremlinServer,
                 new GraphSON2Reader(),
@@ -184,25 +181,26 @@ using (var gremlinClient = new GremlinClient(
                 GremlinClient.GraphSON2MimeType))
 {
 
-    FacultyDTO AppliedMath = new FacultyDTO { Id = new Guid().ToString(), Name = "Applied mathematics and informatics" };
-    //LectureRoomDTO Room1 = new() { Id = "Room1", Floor = 1, Name = "111", NumberOfSeats = 60, X = 1254.501875, Y = 502.940478 };
-    //LectureRoomDTO Room2 = new() { Id = "Room2", Floor = 1, Name = "112", NumberOfSeats = 30, X = 1356.318469, Y = 613.092833 };
+    IRoleDal role_dal = new RoleDal(gremlinClient);
+    var admin_role = role_dal.AddRole(new RoleDTO() { Id = "admin_role_id", Name = "admin" });
+    var user_role = role_dal.AddRole(new RoleDTO() { Id = "user_role_id", Name = "user" });
 
-    //ILectureRoomNodeDal lectureRoomNodeDal = new LectureRoomDal(gremlinClient);
-    //lectureRoomNodeDal.AddLectureRoomNode(Room1);
-    //lectureRoomNodeDal.AddLectureRoomNode(Room2);
+    UserDTO admin = new UserDTO() { Id = "admin_id", UserName = "admin", Password = "admin" };
+    UserDTO user = new UserDTO() { Id = "user_id", UserName = "user", Password = "user" };
+    IUserDal user_dal = new UserDal(gremlinClient);
+    user_dal.AddUser(admin);
+    user_dal.AddUser(user);
+
+    IRoleEdgeDal edge_dal = new RoleEdgeDal(gremlinClient);
+    edge_dal.AddRoleToUser(admin, user_role);
+    edge_dal.AddRoleToUser(admin, admin_role);
+
+    edge_dal.AddRoleToUser(user, user_role);
+
+
+    FacultyDTO AppliedMath = new FacultyDTO { Id = new Guid().ToString(), Name = "Applied mathematics and informatics" };
 
     IFacultyDal facultyDal = new FacultyDal(gremlinClient);
     facultyDal.AddFaculty(AppliedMath);
-
-    //IFacultyEdgeDal facultyEdgeDal = new FacultyEdgeDal(gremlinClient);
-    //facultyEdgeDal.AddLectureRoomToFaculty(Room1, AppliedMath);
-    //facultyEdgeDal.AddLectureRoomToFaculty(Room2, AppliedMath);
-
-    //var first = facultyEdgeDal.GetFacultyForLectureRoom(Room1);
-    //var second = facultyEdgeDal.GetFacultyForLectureRoom(Room2);
-
-
-
 
 }

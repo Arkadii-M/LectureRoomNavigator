@@ -1,7 +1,9 @@
 ﻿using BLL.Interface;
 using DTO.Edges;
 using DTO.Vertices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,14 +30,7 @@ namespace Web.Controllers
             return to_ret;
         }
 
-        //[HttpGet("byIds")]
-        //public IEnumerable<NavigationEdgeDTO> GetByIds([FromBody] List<string> nav_ids)
-        //{
-        //    return _navigationManager.GetNavigationEdgesByIds(nav_ids.ToArray()).AsEnumerable();
-        //}
-
-
-        // GET: api/<EdgesController>
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult AddEdge([FromBody] NavigationEdgeDTO edge)
         {
@@ -50,36 +45,5 @@ namespace Web.Controllers
             }
             return Ok();
         }
-
-        //[HttpGet]
-        //public IEnumerable<Tuple<Tuple<float,float>, Tuple<float, float>>> GetNavCoordinates()
-        //{
-        //    return _navigationManager.GetAllNavigationEdges();
-        //}
-
-        //// GET api/<EdgesController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/<EdgesController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<EdgesController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<EdgesController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

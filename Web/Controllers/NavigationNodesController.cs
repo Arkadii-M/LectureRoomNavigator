@@ -2,7 +2,9 @@
 using BLL.Interface;
 using DTO.Edges;
 using DTO.Vertices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,7 +39,7 @@ namespace Web.Controllers
             return _navigationManager.GetNavigationNodeById(id);
         }
 
-        // POST api/<NavigationNodesController>
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Post([FromBody] NavigationNodeDTO value)
         {
@@ -46,13 +48,13 @@ namespace Web.Controllers
                 return Ok();
             return BadRequest();
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPut]
         public void Put([FromBody] NavigationNodeDTO value)
         {
             _navigationManager.UpdateNavigationNode(value);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         public void Delete([FromQuery] string id)
         {

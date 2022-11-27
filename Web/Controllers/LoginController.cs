@@ -1,6 +1,7 @@
 ﻿using BLL.Interface;
 using DTO.Vertices;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,23 +29,30 @@ namespace Web.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] UserDTO user)// TODO add Cookie
         {
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Role,"admin"), new Claim(ClaimTypes.Role, "user") };
-            var jwt = new JwtSecurityToken(
-                issuer: AuthHelper.Issuer,
-                audience: AuthHelper.Audience,
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(1),
-                signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(
-                    AuthHelper.GetSymmetricSecurityKey(),
-                    SecurityAlgorithms.HmacSha256
-                    )
-                );
-            return Ok(new { username = user.UserName, token = new JwtSecurityTokenHandler().WriteToken(jwt) });
-            //if (_userManager.LoginUser(user))
-            //{
-            //    return Ok(new { username =user.UserName,token = new JwtSecurityTokenHandler().WriteToken(jwt) });
-            //}
-            //return Forbid();
+            if (_userManager.LoginUser(user))
+            {
+                var roles = _userManager.GetUserRoles(user.UserName);
+
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName)};
+
+                foreach(var role in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role.Name));
+                }
+
+                var jwt = new JwtSecurityToken(
+                    issuer: AuthHelper.Issuer,
+                    audience: AuthHelper.Audience,
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(AuthHelper.TokenLifetime),
+                    signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(
+                        AuthHelper.GetSymmetricSecurityKey(),
+                        SecurityAlgorithms.HmacSha256
+                        )
+                    );
+                return Ok(new { username = user.UserName, token = new JwtSecurityTokenHandler().WriteToken(jwt) });
+            }
+            return Forbid("No user found");
         }
     }
 }
