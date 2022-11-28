@@ -37,7 +37,6 @@
     <None Remove="ClientApp\src\app\dto\navigation-edge.dto.ts" />
     <None Remove="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <None Remove="ClientApp\src\app\dto\simple-path.dto.ts" />
-    <None Remove="ClientApp\src\app\dto\user.dto.ts" />
     <None Remove="ClientApp\src\app\dto\vertex.dto.ts" />
     <None Remove="ClientApp\src\app\guards\auth.guard.ts" />
     <None Remove="ClientApp\src\app\guards\authorize-admin.guard.ts" />
@@ -48,7 +47,6 @@
     <None Remove="ClientApp\src\app\services\navigation-edge.service.ts" />
     <None Remove="ClientApp\src\app\services\navigation-node.service.ts" />
     <None Remove="ClientApp\src\app\services\path.service.ts" />
-    <None Remove="ClientApp\src\app\services\user.service.ts" />
     <None Remove="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
     <None Remove="ClientApp\src\app\user\login\login.component.ts" />
     <None Remove="ClientApp\src\app\user\map-view\map-view.component.ts" />
@@ -72,7 +70,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-edge.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\simple-path.dto.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\dto\user.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\vertex.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\guards\authorize-admin.guard.ts" />
@@ -83,7 +80,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\services\navigation-edge.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\navigation-node.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\path.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\lecture-room-list\lecture-room-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\user\login\login.component.ts">
       <SubType>Code</SubType>

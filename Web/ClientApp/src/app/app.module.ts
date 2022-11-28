@@ -29,7 +29,6 @@ import { TableModule } from 'primeng/table';
 
 
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { RegisterComponent } from './user/register/register.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { RegisterComponent } from './user/register/register.component';
     LectureRoomListComponent,
     MapViewComponent,
     LoginComponent,
-    RegisterComponent,
     // Admin components
     AdminPanelComponent,
     //
@@ -70,7 +68,6 @@ import { RegisterComponent } from './user/register/register.component';
       { path: 'lecture-room-list', component: LectureRoomListComponent },
       { path: 'map-view', component: MapViewComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
       {
         path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthenticationGuard],
         children: [
