@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private auth_service: AuthService,
-              private route: ActivatedRoute,
-              private router: Router,  ) {
+    private route: ActivatedRoute,
+    private router: Router,) {
   }
   ngOnInit(): void {
     this.auth_service.getLoginEmitter().subscribe((res: LogInResult) => {
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       if (res.loggedin)
         this.LoggedIn();
     });
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 

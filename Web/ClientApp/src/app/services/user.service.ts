@@ -20,7 +20,7 @@ export class UserService {
   }
 
   addOne(user: User) {
-    return this.http.post(this.baseUrl + 'api/Users',user);
+    return this.http.post(this.baseUrl + 'api/Users', user);
   }
   Update(user: User) {
     return this.http.put(this.baseUrl + 'api/Users', user, { headers: this.formHeader() });

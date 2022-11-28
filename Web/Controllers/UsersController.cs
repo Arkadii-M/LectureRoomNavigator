@@ -35,7 +35,7 @@ namespace Web.Controllers
         [HttpPost]
         public void Post([FromBody] UserDTO user)
         {
-            user.Roles = new List<RoleDTO>() { new RoleDTO { Name="user"} };
+            user.Roles = new List<RoleDTO>() { new RoleDTO { Name = "user" } };
             this._userManager.AddUser(user);
         }
 
