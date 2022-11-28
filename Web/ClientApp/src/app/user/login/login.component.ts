@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
         this.LoggedIn();
     });
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   Login() {
