@@ -37,6 +37,7 @@
     <None Remove="ClientApp\src\app\dto\navigation-edge.dto.ts" />
     <None Remove="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <None Remove="ClientApp\src\app\dto\simple-path.dto.ts" />
+    <None Remove="ClientApp\src\app\dto\user.dto.ts" />
     <None Remove="ClientApp\src\app\dto\vertex.dto.ts" />
     <None Remove="ClientApp\src\app\guards\auth.guard.ts" />
     <None Remove="ClientApp\src\app\guards\authorize-admin.guard.ts" />
@@ -70,6 +71,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-edge.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\navigation-node.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\simple-path.dto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\dto\user.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\vertex.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\guards\authorize-admin.guard.ts" />

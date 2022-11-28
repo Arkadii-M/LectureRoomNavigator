@@ -20,7 +20,7 @@ import { NavigationNodeEditComponent } from './admin/crud/navigation-nodes/navig
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './user/login/login.component'
-
+import { RegisterComponent } from './user/register/register.component';
 
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -41,6 +41,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     LectureRoomListComponent,
     MapViewComponent,
     LoginComponent,
+    RegisterComponent,
     // Admin components
     AdminPanelComponent,
     //
@@ -68,6 +69,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
       { path: 'lecture-room-list', component: LectureRoomListComponent },
       { path: 'map-view', component: MapViewComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       {
         path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthenticationGuard],
         children: [

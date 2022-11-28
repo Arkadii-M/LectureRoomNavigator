@@ -12,6 +12,7 @@ const PROXY_CONFIG = [
       "/api/NavigationEdges",
       "/api/Faculties",
       "/api/Login",
+      "/api/Users",
       "/swagger",
 
    ],
