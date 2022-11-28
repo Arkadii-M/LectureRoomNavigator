@@ -13,14 +13,26 @@ namespace BLL.Concrete
     {
         private readonly IUserDal _userDal;
         private readonly IRoleEdgeDal _roleEdgeDal;
-        public UserManager(IUserDal userDal, IRoleEdgeDal roleEdgeDal)
+        private readonly IRoleDal _roleDal;
+        public UserManager(IUserDal userDal, IRoleEdgeDal roleEdgeDal, IRoleDal roleDal)
         {
             _userDal = userDal;
             _roleEdgeDal = roleEdgeDal;
+            _roleDal = roleDal;
         }
         public UserDTO AddUser(UserDTO user)
         {
-            return _userDal.AddUser(user);
+            user = _userDal.AddUser(user);
+            var roles = _roleDal.GetAllRoles();
+
+            foreach (var add_role in user.Roles)
+            {
+                RoleDTO? to_add = roles.Find(find => find.Name == add_role.Name);
+                if (to_add is not null)
+                    this._roleEdgeDal.AddRoleToUser(user, to_add);
+            }
+            this.AttachUserRoles(ref user);
+            return user;
         }
 
         public List<UserDTO> GetAllUsers()
