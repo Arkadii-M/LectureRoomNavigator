@@ -14,12 +14,14 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   returnUrl: string = '/';
+  login_failed: boolean = false;
 
   private LoggedIn(): void { // route to return url
     console.log("User is logged in successful");
     this.router.navigateByUrl(this.returnUrl);
 
   }
+  
 
   constructor(private auth_service: AuthService,
     private route: ActivatedRoute,
@@ -30,6 +32,9 @@ export class LoginComponent implements OnInit {
       console.log(res);
       if (res.loggedin)
         this.LoggedIn();
+      else
+        this.login_failed = true;
+
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 

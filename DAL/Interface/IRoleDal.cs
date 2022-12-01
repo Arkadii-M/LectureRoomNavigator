@@ -11,6 +11,7 @@ namespace DAL.Interface
     {
         RoleDTO AddRole(RoleDTO role);
         List<RoleDTO> GetAllRoles();
+        RoleDTO UpdateRole(RoleDTO role);
         bool RemoveRole(RoleDTO role);
         bool RemoveRoleById(string id);
     }

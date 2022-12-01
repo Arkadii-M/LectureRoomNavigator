@@ -49,6 +49,11 @@ namespace BLL.Concrete
             return user;
         }
 
+        public UserDTO GetUserById(string username)
+        {
+            return _userDal.GetUserById(username);
+        }
+
         public List<RoleDTO> GetUserRoles(string username)
         {
             return this.GetUser(username).Roles;
@@ -57,6 +62,22 @@ namespace BLL.Concrete
         public bool LoginUser(UserDTO user)
         {
             return _userDal.LoginUser(user);
+        }
+
+        public bool RemoveUserById(string id)
+        {
+            return _userDal.RemoveUserById(id);
+        }
+
+        public UserDTO UpdateUser(UserDTO user)
+        {
+            var last_user_record = GetUser(user.UserName);
+            user.Roles.ForEach(role => {
+                if(!last_user_record.Roles.Contains(role))
+                    _roleEdgeDal.AddRoleToUser(user, role);
+            });
+
+            return _userDal.UpdateUser(user);
         }
 
         private void AttachUserRoles(ref UserDTO user)

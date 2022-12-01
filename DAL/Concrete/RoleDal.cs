@@ -65,5 +65,18 @@ namespace DAL.Concrete
             var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
             return GremlinRequest.IsResponseOk(res.StatusAttributes);
         }
+
+        public RoleDTO UpdateRole(RoleDTO role)
+        {
+            var gremlinCode = $@"
+				g.V('{role.Id}')
+                    .property('name','{role.Name}')
+			";
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            role.TryParseDynamicToCurrent(result.SingleOrDefault());
+
+            return role;
+        }
     }
 }

@@ -35,9 +35,24 @@ namespace BLL.Concrete
             return this._faculty_dal.GetAllFaculties();
         }
 
+        public FacultyDTO GetFacultyById(string id)
+        {
+            return _faculty_dal.GetFacultyById(id);
+        }
+
         public bool RemoveFaculty(FacultyDTO faculty)
         {
-            return this._faculty_dal.RemoveFacultyById(faculty.Id);
+            return this.RemoveFacultyById(faculty.Id);
+        }
+
+        public bool RemoveFacultyById(string id)
+        {
+            return _faculty_dal.RemoveFacultyById(id);
+        }
+
+        public FacultyDTO UpdateFacluty(FacultyDTO faculty)
+        {
+            return _faculty_dal.UpdateFaculty(faculty);
         }
     }
 }

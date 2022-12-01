@@ -10,6 +10,8 @@ namespace BLL.Interface
     public interface IRoleManager
     {
         RoleDTO AddRole(RoleDTO role);
+        RoleDTO UpdateRole(RoleDTO role);
+        bool DeleteRole(string id);
         List<RoleDTO> GetAllRoles();
     }
 }

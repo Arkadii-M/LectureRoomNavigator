@@ -7,5 +7,6 @@
     <label>Password</label><br />
     <input type="password" [(ngModel)]="password"/>
   </p>
+  <h1 *ngIf="login_failed">Incorrect username or passowrd</h1>
   <input type="submit" value="Login" (click)="Login()"/>
 </div>

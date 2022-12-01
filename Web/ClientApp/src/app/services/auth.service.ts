@@ -39,9 +39,12 @@ export class AuthService {
 
     this.http.post(this.baseUrl + 'api/Login', { UserName: username, Password: password }).pipe(
         map((data: any) => { localStorage.removeItem('token'); localStorage.setItem('token', data.token);},
-          catchError(err => { console.log(err); return []; }))).subscribe(res => {
+          catchError(err => {
+            return [];
+          })))
+      .subscribe(res => {
             this.fireIsLoggedIn.emit(new LogInResult(this.IsLogin(), this.HasAdminRole()));
-        });
+      }, err => { this.fireIsLoggedIn.emit(new LogInResult(false, false)); });
   }
 
   Logout():void {

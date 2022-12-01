@@ -26,7 +26,7 @@ namespace DAL.Concrete
 				g.addV('{label}')
                     .property('id', '{user.Id}')
                     .property('name','{user.UserName}')
-                    .property('password','{user.PasswordHashStr}')
+                    .property('password','{user.GetPasswordHashStr()}')
 			";
 
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
@@ -83,7 +83,14 @@ namespace DAL.Concrete
         public bool LoginUser(UserDTO user)
         {
             UserDTO fromDb =this.GetUserByName(user.UserName);
-            return (fromDb.PasswordHashStr == user.PasswordHashStr);
+            return (fromDb.GetPasswordHashStr() == user.GetPasswordHashStr());
+        }
+
+        public bool RemoveUserById(string id)
+        {
+            var gremlinCode = $@"g.V('{id}').drop()";
+            var res = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(res.StatusAttributes);
         }
 
         public UserDTO UpdateUser(UserDTO user)
@@ -91,7 +98,7 @@ namespace DAL.Concrete
             var gremlinCode = $@"
 				g.V('{user.Id}')
                     .property('name','{user.UserName}')
-                    .property('password','{user.PasswordHashStr}')
+                    .property('password','{user.GetPasswordHashStr()}')
 			";
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
             user.TryParseDynamicToCurrent(result.SingleOrDefault());

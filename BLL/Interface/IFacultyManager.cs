@@ -11,7 +11,10 @@ namespace BLL.Interface
     {
         public FacultyDTO AddFaculty(FacultyDTO faculty);
         public bool RemoveFaculty(FacultyDTO faculty);
+        public bool RemoveFacultyById(string id);
         public List<FacultyDTO> GetAllFaculties();
+        public FacultyDTO GetFacultyById(string id);
+        public FacultyDTO UpdateFacluty(FacultyDTO faculty);
 
         public bool AddLectureRoomToFaculty(LectureRoomDTO lectureRoom,FacultyDTO faculty);
     }

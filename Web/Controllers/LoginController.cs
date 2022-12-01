@@ -52,7 +52,7 @@ namespace Web.Controllers
                     );
                 return Ok(new { username = user.UserName, token = new JwtSecurityTokenHandler().WriteToken(jwt) });
             }
-            return Forbid("No user found");
+            return Forbid();
         }
     }
 }

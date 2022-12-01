@@ -60,8 +60,10 @@ namespace DTO.Vertices
                 this._password_hash_str = BitConverter.ToString(this._password_hash);
             } }
 
-        public string PasswordHashStr { get { return this._password_hash_str; } }
-        public byte[] PasswordHash { get { return this._password_hash; } }
+        public byte[] GetPasswordHash() { return this._password_hash; }
+        public string GetPasswordHashStr() { return this._password_hash_str; }
+        //public string PasswordHashStr { get { return this._password_hash_str; } }
+        //public byte[] PasswordHash { get { return this._password_hash; } }
 
         public List<RoleDTO> Roles { get; set; } = new List<RoleDTO>();
 

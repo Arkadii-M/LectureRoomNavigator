@@ -16,6 +16,8 @@ namespace DAL.Interface
         List<UserDTO> GetAllUsers();
         UserDTO UpdateUser(UserDTO user);
 
+        bool RemoveUserById(string id);
+
         bool LoginUser(UserDTO user);
     }
 }

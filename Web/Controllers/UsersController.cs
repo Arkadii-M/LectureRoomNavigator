@@ -1,6 +1,8 @@
 ﻿using BLL.Interface;
 using DTO.Vertices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,16 +21,18 @@ namespace Web.Controllers
         }
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<UserDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+            var users = _userManager.GetAllUsers();
+            return _userManager.GetAllUsers();
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public UserDTO Get(string id)
         {
-            return "value";
+            var user = _userManager.GetUserById(id);
+            return user;
         }
 
         // POST api/<UsersController>
@@ -40,15 +44,19 @@ namespace Web.Controllers
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Authorize(Roles = "admin")]
+        [HttpPut]
+        public void Put([FromBody] UserDTO user)
         {
+            _userManager.UpdateUser(user);
         }
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // PUT api/<UsersController>/5
+        [Authorize(Roles = "admin")]
+        [HttpDelete]
+        public void Delete([FromQuery] string id)
         {
+            _userManager.RemoveUserById(id);
         }
     }
 }
