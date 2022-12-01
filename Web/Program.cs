@@ -25,12 +25,6 @@ string Database = Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME") 
 string Container = Environment.GetEnvironmentVariable("COSMOS_DB_CONTAINER_NAME") ?? throw new ArgumentException("Missing env var: Container name");
 int Port = Convert.ToInt32(Environment.GetEnvironmentVariable("COSMOS_DB_PORT") ?? throw new ArgumentException("Missing env var: Port"));
 
-//string Host = "lectureroomnavigation.gremlin.cosmos.azure.com";
-//string PrimaryKey = "AsSisOSbR8yevamXEgxwXBhp6nJ8M4T4B5TBSy6dyRPrgo3Z5DJOqADAZgZewbKa6gmJXR7UUwMaACDbQ58Lsw==";
-//string Database = "NavigatorDB";
-//string Container = "lect_nav";
-//int Port = 443;
-
 string containerLink = "/dbs/" + Database + "/colls/" + Container;
 
 var gremlinServer = new GremlinServer(Host, Port, enableSsl: EnableSSL,
