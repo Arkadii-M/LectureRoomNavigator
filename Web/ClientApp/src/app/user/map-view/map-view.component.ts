@@ -19,11 +19,11 @@ import { NavigationEdge } from '../../dto/navigation-edge.dto';
 export class MapViewComponent implements OnInit {
   selectedOption: string = '';
   floors: any[] = [
-    { value: 0, viewValue: 'Basement' },
-    { value: 1, viewValue: 'First' },
-    { value: 2, viewValue: 'Second' },
-    { value: 3, viewValue: 'Third' },
-    { value: 4, viewValue: 'Fourth' },
+    { value: 0, viewValue: 'Підвал' },
+    { value: 1, viewValue: 'Перший' },
+    { value: 2, viewValue: 'Другий' },
+    { value: 3, viewValue: 'Третій' },
+    { value: 4, viewValue: 'Четвертий' },
   ];
 
   public lecture_rooms: LectureRoom[] = [];
@@ -44,18 +44,18 @@ export class MapViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.navigation_edge_service.getAll().subscribe(result => {
-      this.navigation_edges = result;
-    }, err => { console.error(err); });
-
     this.lectrue_room_service.getAll().subscribe(results => {
       this.lecture_rooms = results;
       this.data_loaded = true;
     }, err => { console.error(err); });
-    this.navigation_node_service.getAll().subscribe(result => {
-      this.navigation_nodes = result;
-    }, err => { console.error(err); })
+
+
+    //this.navigation_edge_service.getAll().subscribe(result => {
+    //  this.navigation_edges = result;
+    //}, err => { console.error(err); });
+    //this.navigation_node_service.getAll().subscribe(result => {
+    //  this.navigation_nodes = result;
+    //}, err => { console.error(err); })
     
   }
 

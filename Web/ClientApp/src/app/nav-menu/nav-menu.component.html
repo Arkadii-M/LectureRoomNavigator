@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Web</a>
+      <a class="navbar-brand" [routerLink]="['/']">Навігатор аудиторій</a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -17,29 +17,29 @@
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/']">Головна</a>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/map-view']">Map example</a>
+            <a class="nav-link text-dark" [routerLink]="['/map-view']">Мапа універистету</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/lecture-room-list']">Lecture room list</a>
+            <a class="nav-link text-dark" [routerLink]="['/lecture-room-list']">Список аудиторій</a>
 
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/room-navigation']">Room navigator</a>
+            <a class="nav-link text-dark" [routerLink]="['/room-navigation']">Навігатор</a>
           </li>
 
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="user_logeed_in && user_is_admin">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel']">Admin panel</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel']">Адмі-панель</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!user_logeed_in">
-            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+            <a class="nav-link text-dark" [routerLink]="['/login']">Увійти</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!user_logeed_in">
-            <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
+            <a class="nav-link text-dark" [routerLink]="['/register']">Зареєструватись</a>
           </li>
 
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="user_logeed_in">
-            <a class="nav-link text-dark" (click)="logout()">Logout</a>
+            <a class="nav-link text-dark" (click)="logout()">Вийти</a>
           </li>
         </ul>
       </div>

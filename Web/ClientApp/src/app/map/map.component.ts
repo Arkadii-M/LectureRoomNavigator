@@ -30,6 +30,16 @@ export enum Floor {
   ThirdFloor,
   FourhFloor
 }
+export function translate_to_ukrainian(floor: string): string {
+  switch (floor) {
+    case Floor[Floor.Basement]: return "Підвал"
+    case Floor[Floor.FirstFloor]: return "Перший"
+    case Floor[Floor.SecondFloor]: return "Другий"
+    case Floor[Floor.ThirdFloor]: return "Третій"
+    case Floor[Floor.FourhFloor]: return "Четвертий"
+    default: return "-"
+  }
+}
 
 export enum NodeStyle {
   classic = 'classic',
