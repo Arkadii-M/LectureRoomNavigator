@@ -71,8 +71,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     TableModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      // User pathes
-/*      { path: 'university-map', component: MapComponent },*/
       { path: 'room-navigation', component: NavigationComponent },
       { path: 'lecture-room-list', component: LectureRoomListComponent },
       { path: 'map-view', component: MapViewComponent },
