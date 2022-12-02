@@ -25,11 +25,14 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\admin\admin-panel.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\faculties\faculties.crud.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-add.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-edit.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\navigation-edges\navigation-edge-add.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-add.component.ts" />
     <None Remove="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-edit.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\roles\roles.crud.component.ts" />
+    <None Remove="ClientApp\src\app\admin\crud\users\users.crud.component.ts" />
     <None Remove="ClientApp\src\app\dto\edge.dto.ts" />
     <None Remove="ClientApp\src\app\dto\faculty.dto.ts" />
     <None Remove="ClientApp\src\app\dto\lectrure-room.dto.ts" />
@@ -58,6 +61,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\admin\admin-panel\admin-panel.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\faculties\faculties.crud.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-add.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\lecture-rooms\lecture-room-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-edges\navigation-edge-add.component.ts" />
@@ -65,6 +69,8 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\admin\crud\navigation-nodes\navigation-node-add.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\roles\roles.crud.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\admin\crud\users\users.crud.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\edge.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\faculty.dto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\dto\lectrure-room.dto.ts" />

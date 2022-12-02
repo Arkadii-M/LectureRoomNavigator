@@ -21,11 +21,16 @@ import { AuthenticationGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './user/login/login.component'
 import { RegisterComponent } from './user/register/register.component';
+import { UsersCRUDComponent } from './admin/crud/users/users.crud.component';
+import { RolesCRUDComponent } from './admin/crud/roles/roles.crud.component';
+import { FacultiesCRUDComponent } from './admin/crud/faculties/faculties.crud.component';
 
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+
+
 
 
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -52,7 +57,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     NavigationNodeEditComponent,
     //
     NavigationEdgeComponent,
-
+    //
+    UsersCRUDComponent,
+    RolesCRUDComponent,
+    FacultiesCRUDComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -80,6 +88,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
           { path: 'navigation-node-edit', component: NavigationNodeEditComponent, },
 
           { path: 'navigation-edge-add', component: NavigationEdgeComponent, },
+
+          { path: 'faculties-crud', component: FacultiesCRUDComponent, },
+          { path: 'users-crud', component: UsersCRUDComponent, },
+          { path: 'roles-crud', component: RolesCRUDComponent, },
+
+
         ]
       },
     ]),

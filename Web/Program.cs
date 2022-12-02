@@ -55,6 +55,7 @@ builder.Services.AddSingleton<ILectrueRoomManger, LectureRoomManger>();
 builder.Services.AddSingleton<IPathManager, PathManager>();
 builder.Services.AddSingleton<IFacultyManager, FacultyManager>();
 builder.Services.AddSingleton<IUserManager, UserManager>();
+builder.Services.AddSingleton<IRoleManager, RoleManager>();
 
 
 builder.Services.AddControllersWithViews();
