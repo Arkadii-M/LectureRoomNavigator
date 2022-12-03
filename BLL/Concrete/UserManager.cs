@@ -76,7 +76,7 @@ namespace BLL.Concrete
                 if(!last_user_record.Roles.Contains(role))
                     _roleEdgeDal.AddRoleToUser(user, role);
             });
-
+            last_user_record.AttachPassword(ref user);
             return _userDal.UpdateUser(user);
         }
 
