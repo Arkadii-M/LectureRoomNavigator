@@ -17,10 +17,6 @@ import { DropdownModule } from 'primeng/dropdown';
   providers: [PathService, NavigationNodeService, LectureRoomService, NavigationEdgeService, DropdownModule],
 })
 export class NavigationComponent{
-
-  public readonly university_enter_id: string = '578d85cf-3c95-498d-8547-b0a445efa9f9';
-  public readonly university_enter_floor: Floor = Floor.FirstFloor;
-
   public start_point: LectureRoom = new LectureRoom;
   public stop_point?: LectureRoom;
   public all_lecture_rooms: LectureRoom[] = [];
@@ -53,11 +49,6 @@ export class NavigationComponent{
     private nav_node_service: NavigationNodeService,
     private nav_edge_service: NavigationEdgeService,
     private lect_room_service: LectureRoomService) {
-    this.start_point.id = this.university_enter_id;
-    this.start_point.name = 'Вхід';
-    this.start_point.floor = this.university_enter_floor;
-    this.all_lecture_rooms.push(this.start_point);
-
   }
 
   private ExtractCoordinates(node: NavigationNode) {
@@ -84,6 +75,13 @@ export class NavigationComponent{
   }
 
   ngOnInit(): void {
+    this.nav_node_service.GetEnterNode().subscribe(result => {
+      this.start_point.id = result.id;
+      this.start_point.name = 'Вхід';
+      this.start_point.floor = result.floor;
+      this.all_lecture_rooms.push(this.start_point);
+    }, err => console.log(err))
+
     this.lect_room_service.getAll().subscribe(results => {
       let sorted_rooms: LectureRoom[] = results.sort((a, b) => {
         if (Number(a.name) < Number(b.name))

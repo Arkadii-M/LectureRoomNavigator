@@ -25,5 +25,8 @@ export class NavigationNodeService {
     let httpParams = new HttpParams().set('id', node_id);
     return this.http.delete(this.baseUrl + 'api/NavigationNodes', { params: httpParams, headers: this.formHeader() });
   }
+  GetEnterNode() {
+    return this.http.get<NavigationNode>(this.baseUrl + 'api/NavigationNodes/university_enter');
+  }
 
 }

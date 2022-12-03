@@ -12,6 +12,7 @@ namespace DAL.Interface
         NavigationNodeDTO AddNavigationNode(NavigationNodeDTO node);
 
         NavigationNodeDTO GetNavigationNodeById(string id);
+        NavigationNodeDTO GetNavigationEnterNode();
         List<NavigationNodeDTO> GetAllNavigationNodes();
         List<NavigationNodeDTO> GetAllNavigationNodesOnFloor(uint floor);
         NavigationNodeDTO UpdateNavigationNode(NavigationNodeDTO node);

@@ -126,5 +126,17 @@ namespace DAL.Concrete
             
             return res;
         }
+
+        public NavigationNodeDTO GetNavigationEnterNode()
+        {
+            NavigationNodeDTO res = new NavigationNodeDTO();
+            var gremlinCode = $@"
+                    g.V().has('university_enter',true)
+			";
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            res.TryParseDynamicToCurrent(result.SingleOrDefault());
+            return res;
+        }
     }
 }
