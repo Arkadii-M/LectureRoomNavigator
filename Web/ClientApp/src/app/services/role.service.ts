@@ -20,7 +20,7 @@ export class RoleService {
   }
 
   addOne(role: Role) {
-    return this.http.post(this.baseUrl + 'api/Roles', role);
+    return this.http.post(this.baseUrl + 'api/Roles', role, { headers: this.formHeader() });
   }
   Update(role: Role) {
     return this.http.put(this.baseUrl + 'api/Roles', role, { headers: this.formHeader() });

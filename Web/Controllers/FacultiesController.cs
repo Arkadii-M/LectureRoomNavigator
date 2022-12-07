@@ -62,9 +62,11 @@ namespace Web.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public void Delete([FromQuery] string id)
+        public IActionResult Delete([FromQuery] string id)
         {
-            _facultyManager.RemoveFacultyById(id);
+            if (_facultyManager.RemoveFacultyById(id))
+                return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BLL.Interface;
+﻿using BLL.Concrete;
+using BLL.Interface;
 using DTO.Vertices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,9 +47,11 @@ namespace Web.Controllers
         // PUT api/<UsersController>/5
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public void Delete([FromQuery] string id)
+        public IActionResult Delete([FromQuery] string id)
         {
-            _roleManger.DeleteRole(id);
+            if (_roleManger.DeleteRole(id))
+                return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

@@ -82,7 +82,7 @@ namespace DAL.Concrete
 
         public bool LoginUser(UserDTO user)
         {
-            UserDTO fromDb =this.GetUserByName(user.UserName);
+            UserDTO fromDb = this.GetUserByName(user.UserName);
             return (fromDb.GetPasswordHashStr() == user.GetPasswordHashStr());
         }
 
@@ -97,7 +97,6 @@ namespace DAL.Concrete
         {
             var gremlinCode = $@"
 				g.V('{user.Id}')
-                    .property('name','{user.UserName}')
                     .property('password','{user.GetPasswordHashStr()}')
 			";
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;

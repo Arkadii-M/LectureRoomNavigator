@@ -1,1 +1,49 @@
 <h1>Here will be list of roles</h1>
+
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+  </ng-template>
+</p-toolbar>
+
+<p-table [value]="roles" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width:20%">Id</th>
+      <th style="width:20%">Name</th>
+      <th style="width:20%"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-role let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="role">
+      <td>
+        {{role.id}}
+      </td>
+      <td>
+        {{role.name}}
+      </td>
+      <td>
+        <div class="flex align-items-center justify-content-center gap-2">
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="delete(role)" class="p-button-rounded p-button-text p-button-danger"></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<p-dialog [(visible)]="addDialog" [style]="{width: '450px'}" header="Role details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" [(ngModel)]="role.name" required autofocus />
+      <small class="p-error" *ngIf="submitted && !role.name">Name is required.</small>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveRole()"></button>
+  </ng-template>
+</p-dialog>

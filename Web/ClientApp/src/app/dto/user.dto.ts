@@ -5,7 +5,7 @@ export class Role {
 
 export class User {
   public id: string = '';
-  public username: string = '';
+  public userName: string = '';
   public password: string = '';
   public roles: Role[] = [];
 }

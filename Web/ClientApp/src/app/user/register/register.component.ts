@@ -27,7 +27,7 @@ export class RegisterComponent {
   Register() {
     let new_user = new User();
     new_user.id = uuidv4();
-    new_user.username = this.username;
+    new_user.userName = this.username;
     new_user.password = this.password;
     this.user_service.addOne(new_user).subscribe((r) => { this.router.navigateByUrl('login'); });
   }
