@@ -97,7 +97,6 @@ namespace DAL.Concrete
         {
             var gremlinCode = $@"
 				g.V('{user.Id}')
-                    .property('name','{user.UserName}')
                     .property('password','{user.GetPasswordHashStr()}')
 			";
             var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
