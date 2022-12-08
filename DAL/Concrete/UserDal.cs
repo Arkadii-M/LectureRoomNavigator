@@ -82,7 +82,7 @@ namespace DAL.Concrete
 
         public bool LoginUser(UserDTO user)
         {
-            UserDTO fromDb =this.GetUserByName(user.UserName);
+            UserDTO fromDb = this.GetUserByName(user.UserName);
             return (fromDb.GetPasswordHashStr() == user.GetPasswordHashStr());
         }
 

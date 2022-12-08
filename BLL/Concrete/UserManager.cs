@@ -74,7 +74,7 @@ namespace BLL.Concrete
             var last_user_record = GetUser(user.UserName);
             user.Roles.ForEach(role => {
                 if(!last_user_record.Roles.Any(pred => pred.Id == role.Id))
-                    _roleEdgeDal.AddRoleToUser(user, role);
+                {_roleEdgeDal.AddRoleToUser(user, role);}
             });
             last_user_record.AttachPassword(ref user);
             return _userDal.UpdateUser(user);
