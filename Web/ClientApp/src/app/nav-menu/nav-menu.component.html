@@ -28,16 +28,10 @@
             <a class="nav-link text-dark" [routerLink]="['/room-navigation']">Навігатор</a>
           </li>
 
-          <!-- Admin panel-->
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="user_logeed_in && user_is_admin">
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" [routerLink]="['/route1']">Dropdown Item One</a>
-              <a class="dropdown-item" [routerLink]="['/route2']">Dropdown Item Two</a>
-            </div>
             <a class="nav-link text-dark" [routerLink]="['/admin-panel']">Адмін-панель</a>
           </li>
-
-
+          
 
 
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!user_logeed_in">
@@ -50,6 +44,7 @@
           <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="user_logeed_in">
             <a class="nav-link text-dark" (click)="logout()">Вийти</a>
           </li>
+
         </ul>
       </div>
     </div>

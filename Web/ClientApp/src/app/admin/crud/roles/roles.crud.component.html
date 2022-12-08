@@ -1,16 +1,14 @@
-<h1>Here will be list of roles</h1>
-
 <p-toolbar styleClass="mb-4 gap-2">
   <ng-template pTemplate="left">
-    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+    <button pButton pRipple label="Додати роль" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
   </ng-template>
 </p-toolbar>
 
 <p-table [value]="roles" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="header">
     <tr>
-      <th style="width:20%">Id</th>
-      <th style="width:20%">Name</th>
+      <th style="width:40%">Ідентифікатор</th>
+      <th style="width:40%">Назва</th>
       <th style="width:20%"></th>
     </tr>
   </ng-template>
@@ -32,18 +30,18 @@
 </p-table>
 
 
-<p-dialog [(visible)]="addDialog" [style]="{width: '450px'}" header="Role details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="addDialog" [style]="{width: '450px'}" header="Додайте деталі" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
 
     <div class="field">
-      <label for="name">Name</label>
+      <label for="name">Назва</label>
       <input type="text" pInputText id="name" [(ngModel)]="role.name" required autofocus />
       <small class="p-error" *ngIf="submitted && !role.name">Name is required.</small>
     </div>
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveRole()"></button>
+    <button pButton pRipple label="Скасувати" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Додати" icon="pi pi-check" class="p-button-text" (click)="saveRole()"></button>
   </ng-template>
 </p-dialog>

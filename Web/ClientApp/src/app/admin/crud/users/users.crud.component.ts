@@ -21,22 +21,25 @@ export class UsersCRUDComponent {
   constructor(
     private users_service: UserService,
     private roles_service: RoleService) {
-
+  }
+  UpdateUsers() {
     this.users_service.getAll().subscribe(results => { // read all users from database
       this.users = results;
       console.log(results);
       this.data_ready = true;
     }, err => { console.error(err); });
+  }
+
+  ngOnInit(): void {
     this.roles_service.getAll().subscribe(results => {
       this.roles = results;
       console.log(results);
     }, err => { console.error(err); })
-
+    this.UpdateUsers();
   }
-
-  ngOnInit(): void {
+  delete(del_user: User) {
+    this.users_service.Delete(del_user.id).subscribe(res => { this.UpdateUsers() });
   }
-
   onRowEditInit(user: User) {
     this.clonedUsers[user.id] = { ...user };
   }

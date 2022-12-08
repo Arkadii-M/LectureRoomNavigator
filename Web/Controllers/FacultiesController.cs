@@ -43,21 +43,22 @@ namespace Web.Controllers
         {
             try
             {
-                _facultyManager.AddFaculty(faculty);
+                faculty = _facultyManager.AddFaculty(faculty);
             }
             catch (Exception exp)
             {
                 _logger.LogError(exp.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            return Ok();
+            return Created("",faculty);
         }
 
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public void Put([FromBody] FacultyDTO value)
+        public IActionResult Put([FromBody] FacultyDTO value)
         {
             _facultyManager.UpdateFacluty(value);
+            return Ok();
         }
 
         [Authorize(Roles = "admin")]
@@ -66,7 +67,7 @@ namespace Web.Controllers
         {
             if (_facultyManager.RemoveFacultyById(id))
                 return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            return BadRequest();
         }
     }
 }

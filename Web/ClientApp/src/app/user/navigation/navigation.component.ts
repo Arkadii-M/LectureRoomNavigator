@@ -38,6 +38,7 @@ export class NavigationComponent{
   public to_id: string = '';
 
   public show_map: boolean = false;
+  public find_path_loading: boolean = false;
 
 
 
@@ -72,6 +73,7 @@ export class NavigationComponent{
       this.show_map = true;
     }
     else { alert("No path exists!"); }
+    this.find_path_loading = false;
   }
 
   ngOnInit(): void {
@@ -129,6 +131,7 @@ export class NavigationComponent{
 }
 
   find_and_show_path() {
+    this.find_path_loading = true;
     if (this.start_point && this.stop_point) {
       this.current_floor = this.start_point.floor;
       this.from_id = this.start_point.id;

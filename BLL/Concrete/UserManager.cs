@@ -72,12 +72,17 @@ namespace BLL.Concrete
         public UserDTO UpdateUser(UserDTO user)
         {
             var last_user_record = GetUser(user.UserName);
-            user.Roles.ForEach(role => {
-                if(!last_user_record.Roles.Any(pred => pred.Id == role.Id))
-                {_roleEdgeDal.AddRoleToUser(user, role);}
+            last_user_record.Roles.ForEach(role =>
+            {
+                if(!user.Roles.Any(pred => pred.Id == role.Id)) // If no role in new list - delete it
+                    _roleEdgeDal.RemoveRoleFromUser(user,role);
+
             });
-            last_user_record.AttachPassword(ref user);
-            return _userDal.UpdateUser(user);
+            user.Roles.ForEach(role => {
+                if (!last_user_record.Roles.Any(pred => pred.Id == role.Id))// Some new role
+                    _roleEdgeDal.AddRoleToUser(user, role);
+            });
+            return user;
         }
 
         private void AttachUserRoles(ref UserDTO user)

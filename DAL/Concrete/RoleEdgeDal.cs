@@ -44,7 +44,12 @@ namespace DAL.Concrete
 
         public bool RemoveRoleFromUser(UserDTO userDTO, RoleDTO role)
         {
-            throw new NotImplementedException();
+            //var gremlinCode = $@"g.V('{userDTO.Id}').outE('{label}').filter(inV().is('{role.Id}')).drop()";
+            //var gremlinCode = $@"g.V('{userDTO.Id}').outE('{label}').inV().has('id', '{role.Id}').drop()";
+            var gremlinCode = $@"g.V('{userDTO.Id}').bothE('{label}').where(otherV().hasId('{role.Id}')).drop()";
+
+            var result = GremlinRequest.SubmitRequest(_client, gremlinCode).Result;
+            return GremlinRequest.IsResponseOk(result.StatusAttributes);
         }
     }
 }

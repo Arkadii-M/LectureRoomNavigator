@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
   <a [routerLink]="['lecture-room-add']">Додати адуторію</a>|
   <a [routerLink]="['lecture-room-edit']">Редагувати аудиторію</a>|
   <a [routerLink]="['navigation-node-add']">Додати навігаційний вузол</a>|
@@ -9,5 +9,57 @@
   <a [routerLink]="['faculties-crud']">Редагувати факультети</a>|
 
 
+</nav>-->
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+  <div class="container">
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['lecture-room-add']">Додати адуторію</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['lecture-room-edit']">Редагувати аудиторію</a>
+        </li>
+
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['navigation-node-add']">Додати навігаційний вузол</a>
+        </li>
+
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['navigation-node-edit']">Редагувати навігаційний вузол</a>
+        </li>
+
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['navigation-edge-add']">Додати сполучення вузлів</a>
+        </li>
+
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['users-crud']">Редагувати користовачів</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['roles-crud']">Редагувати ролі</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['faculties-crud']">Редагувати факультети</a>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
 </nav>
 <router-outlet></router-outlet>

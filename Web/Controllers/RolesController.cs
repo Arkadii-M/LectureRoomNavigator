@@ -32,17 +32,19 @@ namespace Web.Controllers
         // POST api/<RolesController>
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public void Post([FromBody] RoleDTO role)
+        public IActionResult Post([FromBody] RoleDTO role)
         {
-            _roleManger.AddRole(role);
+            role = _roleManger.AddRole(role);
+            return Created("", role);
         }
 
         // PUT api/<UsersController>/5
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public void Put([FromBody] RoleDTO role)
+        public IActionResult Put([FromBody] RoleDTO role)
         {
             _roleManger.UpdateRole(role);
+            return Ok();
         }
         // PUT api/<UsersController>/5
         [Authorize(Roles = "admin")]
@@ -51,7 +53,7 @@ namespace Web.Controllers
         {
             if (_roleManger.DeleteRole(id))
                 return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            return BadRequest();
         }
     }
 }

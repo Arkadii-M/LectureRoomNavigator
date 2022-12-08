@@ -7,5 +7,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent {
 
+  isExpanded = false;
+  user_logeed_in = false;
+  user_is_admin = false;
 
+
+  collapse() {
+    this.isExpanded = false;
+  }
+
+  toggle() {
+    this.isExpanded = !this.isExpanded;
+  }
 }

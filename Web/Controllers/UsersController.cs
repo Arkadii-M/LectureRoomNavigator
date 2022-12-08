@@ -37,26 +37,30 @@ namespace Web.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] UserDTO user)
+        public IActionResult Post([FromBody] UserDTO user)
         {
             user.Roles = new List<RoleDTO>() { new RoleDTO { Name = "user" } };
-            this._userManager.AddUser(user);
+            user = this._userManager.AddUser(user);
+            return Created("", user);
         }
 
         // PUT api/<UsersController>/5
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public void Put([FromBody] UserDTO user)
+        public IActionResult Put([FromBody] UserDTO user)
         {
             _userManager.UpdateUser(user);
+            return Ok();
         }
 
         // PUT api/<UsersController>/5
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public void Delete([FromQuery] string id)
+        public IActionResult Delete([FromQuery] string id)
         {
-            _userManager.RemoveUserById(id);
+            if(_userManager.RemoveUserById(id))
+                return Ok();
+            return BadRequest();
         }
     }
 }
