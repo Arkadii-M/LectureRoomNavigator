@@ -146,5 +146,10 @@ namespace BLL.Concrete
                 res.ForEach(el => { this.AttachMapElements(ref el); });
             return res;
         }
+
+        public NavigationNodeDTO GetEnterNode()
+        {
+            return _node_navigator.GetNavigationEnterNode();
+        }
     }
 }

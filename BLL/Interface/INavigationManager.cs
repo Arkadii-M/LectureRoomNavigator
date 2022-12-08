@@ -25,7 +25,7 @@ namespace BLL.Interface
             uint floor,
             Tuple<double, double> x_lim,
             Tuple<double, double> y_lim);
-
+        NavigationNodeDTO GetEnterNode();
         // Navigation Edges
         NavigationEdgeDTO AddNavigationEdge(NavigationEdgeDTO edge);
 

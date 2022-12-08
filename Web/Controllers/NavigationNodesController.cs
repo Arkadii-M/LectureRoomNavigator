@@ -39,6 +39,13 @@ namespace Web.Controllers
             return _navigationManager.GetNavigationNodeById(id);
         }
 
+        [Route("university_enter")]
+        [HttpGet]
+        public NavigationNodeDTO GetUniversityEnterNode()
+        {
+            return _navigationManager.GetEnterNode();
+        }
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Post([FromBody] NavigationNodeDTO value)
