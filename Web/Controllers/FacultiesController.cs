@@ -37,7 +37,7 @@ namespace Web.Controllers
             return _facultyManager.GetFacultyById(id);
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult AddFaculty([FromBody] FacultyDTO faculty)
         {
@@ -53,7 +53,7 @@ namespace Web.Controllers
             return Created("",faculty);
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpPut]
         public IActionResult Put([FromBody] FacultyDTO value)
         {
@@ -61,7 +61,7 @@ namespace Web.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpDelete]
         public IActionResult Delete([FromQuery] string id)
         {

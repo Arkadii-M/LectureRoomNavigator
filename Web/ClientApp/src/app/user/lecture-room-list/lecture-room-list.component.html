@@ -1,15 +1,38 @@
-<p-table
-         [value]="lecture_rooms"
+<p-table #myTab [value]="lecture_rooms"
+         [scrollable]="true"
          sortField="floor"
+         sortMode="multiple"
          [rows]="10"
-         [paginator]="true">
+         [paginator]="true"
+         [globalFilterFields]="['name','numberOfSeats','floor','faculty.name']">
+
+  <ng-template pTemplate="caption">
+    <div style="text-align: left">
+      <i class="pi pi-search"
+         style="margin:4px 4px 0 0"> </i>
+      <input type="text"
+             pInputText size="10"
+             placeholder="Global Filter"
+             (input)="myTab.filterGlobal($any($event.target).value, 'contains')"
+             style="width:auto" />
+    </div>
+  </ng-template>
+
+
+
   <ng-template pTemplate="header">
     <tr>
-      <th>Номер аудиторії</th>
-      <th>Кількість місць</th>
-      <th>Поверх</th>
-      <th>Факультет</th>
+
+      <th pSortableColumn="name" style="width:15%">Номер аудиторії <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="numberOfSeats" style="width:15%">Кількість місць <p-sortIcon field="numberOfSeats"></p-sortIcon></th>
+      <th pSortableColumn="floor" style="width:15%">Поверх <p-sortIcon field="floor"></p-sortIcon></th>
+      <th pSortableColumn="faculty.name" style="width:45%">Факультет <p-sortIcon field="faculty.name"></p-sortIcon></th>
+      <th style="width: 5rem"></th>
+      <th style="width: 5rem"></th>
     </tr>
+
+
+
   </ng-template>
   <ng-template pTemplate="body" let-room>
     <tr>
@@ -17,6 +40,12 @@
       <td>{{ room.numberOfSeats }}</td>
       <td>{{ floor_to_name(room.floor) }}</td>
       <td>{{ room.faculty.name }}</td>
+      <td>
+        <button type="button" pButton pRipple icon="pi pi-search" (click)="Navigaete(room)"></button>
+      </td>
+      <td>
+        <button type="button" pButton pRipple icon="pi pi-map" (click)="ShowOnMap(room)"></button>
+      </td>
     </tr>
   </ng-template>
 </p-table>

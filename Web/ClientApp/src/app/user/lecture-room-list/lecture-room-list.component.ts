@@ -1,8 +1,9 @@
-import { Component, Inject, ViewChild,OnInit } from '@angular/core';
+import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Floor, MapComponent, translate_to_ukrainian } from '../../map/map.component';
 import { LectureRoomService } from '../../services/lecture-room.service';
 import { LectureRoom } from '../../dto/lectrure-room.dto';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'lecture-room-list',
@@ -13,7 +14,9 @@ import { LectureRoom } from '../../dto/lectrure-room.dto';
 export class LectureRoomListComponent implements OnInit {
   public lecture_rooms: LectureRoom[] = [];
 
-  constructor(private lectrue_room_service: LectureRoomService) {
+  constructor(private lectrue_room_service: LectureRoomService,
+    private route: ActivatedRoute,
+    private router: Router) {
     Floor.Basement.toString();
     let fl = Floor[0];
   }
@@ -27,4 +30,27 @@ export class LectureRoomListComponent implements OnInit {
       this.lecture_rooms = results;
     }, err => { console.error(err); });
   }
+  ShowOnMap(room: LectureRoom) {
+    console.log(room);
+    this.router.navigate(
+      ['/map-view'],
+      {
+        queryParams: {
+          'id': room.id,
+        }
+      }
+    );
+  }
+  Navigaete(room: LectureRoom) {
+    console.log(room);
+    this.router.navigate(
+      ['/room-navigation'],
+      {
+        queryParams: {
+          'id': room.id,
+        }
+      }
+    );
+  }
+
 }
