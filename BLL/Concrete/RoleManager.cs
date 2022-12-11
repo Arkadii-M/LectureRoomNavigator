@@ -18,6 +18,7 @@ namespace BLL.Concrete
         }
         public RoleDTO AddRole(RoleDTO role)
         {
+            role.Id = Guid.NewGuid().ToString();
             return _roleDal.AddRole(role);
         }
 

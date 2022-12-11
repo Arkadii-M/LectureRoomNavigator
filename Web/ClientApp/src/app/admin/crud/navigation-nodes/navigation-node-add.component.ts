@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Floor, MapComponent } from '../../../map/map.component';
 import { LectureRoomService } from '../../../services/lecture-room.service'
 import { LectureRoom } from '../../../dto/lectrure-room.dto'
-import { v4 as uuidv4 } from 'uuid'
 import { Faculty } from '../../../dto/faculty.dto';
 import { FacultyService } from '../../../services/faculty.service';
 import { NavigationNode } from '../../../dto/navigation-node.dto';
@@ -18,11 +17,11 @@ import { NavigationNodeService } from '../../../services/navigation-node.service
 export class NavigationNodeAddComponent {
   selectedOption: string = '';
   floors: any[] = [
-    { value: 0, viewValue: 'Basement' },
-    { value: 1, viewValue: 'First' },
-    { value: 2, viewValue: 'Second' },
-    { value: 3, viewValue: 'Third' },
-    { value: 4, viewValue: 'Fourth' },
+    { value: 0, viewValue: 'Підвал' },
+    { value: 1, viewValue: 'Перший' },
+    { value: 2, viewValue: 'Другий' },
+    { value: 3, viewValue: 'Третій' },
+    { value: 4, viewValue: 'Четвертий' },
   ];
 
   public navigation_nodes: NavigationNode[] = [];
@@ -52,8 +51,8 @@ export class NavigationNodeAddComponent {
     this.to_add_node.floor = this.current_floor;
   }
 
-  setFloor(value: string) {
-    this.current_floor = Number(value);
+  setFloor(event: any) {
+    this.current_floor = Number(event.value.value);
     this.to_add_node.floor = this.current_floor;
     this.to_add_node.x = 0;
     this.to_add_node.y = 0;
@@ -64,7 +63,6 @@ export class NavigationNodeAddComponent {
     this.to_add_node.y = value[1];
   }
   sumbit() {
-    this.to_add_node.id = uuidv4();
     console.log(this.to_add_node);
     this.navigation_node_service.addOne(this.to_add_node).subscribe(finish => { this.UpdateNavigatioNodes(); }, err => { console.log(err); });
   }

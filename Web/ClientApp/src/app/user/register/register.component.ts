@@ -17,6 +17,7 @@ export class RegisterComponent {
 
   username: string = '';
   password: string = '';
+  register_failed: boolean = false;
 
 
   constructor(private user_service: UserService,
@@ -26,9 +27,8 @@ export class RegisterComponent {
 
   Register() {
     let new_user = new User();
-    new_user.id = uuidv4();
     new_user.userName = this.username;
     new_user.password = this.password;
-    this.user_service.addOne(new_user).subscribe((r) => { this.router.navigateByUrl('login'); });
+    this.user_service.addOne(new_user).subscribe((r) => { this.router.navigateByUrl('login'); }, err => { console.log(err); this.register_failed = true; });
   }
 }

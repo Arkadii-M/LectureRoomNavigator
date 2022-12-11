@@ -20,11 +20,11 @@ import { IMapElement } from '../../../dto/map-element';
 export class NavigationEdgeComponent {
   selectedOption: string = '';
   floors: any[] = [
-    { value: 0, viewValue: 'Basement' },
-    { value: 1, viewValue: 'First' },
-    { value: 2, viewValue: 'Second' },
-    { value: 3, viewValue: 'Third' },
-    { value: 4, viewValue: 'Fourth' },
+    { value: 0, viewValue: 'Підвал' },
+    { value: 1, viewValue: 'Перший' },
+    { value: 2, viewValue: 'Другий' },
+    { value: 3, viewValue: 'Третій' },
+    { value: 4, viewValue: 'Четвертий' },
   ];
 
 
@@ -67,8 +67,9 @@ export class NavigationEdgeComponent {
 /*    this.UpdateNavigationEdges();*/
   }
 
-  setFloor(value: string):void {
-    this.current_floor = Number(value);
+
+  setFloor(event: any) {
+    this.current_floor = Number(event.value.value);
   }
 
   private BothLectureRoom(first_id: string, second_id: string): boolean {
@@ -129,7 +130,6 @@ export class NavigationEdgeComponent {
       alert("Can't create edge between lecture rooms!")
       return;
     }
-    this.to_add_edge.id = uuidv4();
     this.navigation_edge_service.addOne(this.to_add_edge).subscribe(finish => { this.UpdateNavigationEdges(); });
   }
 

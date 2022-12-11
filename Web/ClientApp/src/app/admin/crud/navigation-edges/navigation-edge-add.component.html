@@ -1,24 +1,11 @@
 <div class="row">
   <div class="column">
-    Floor:
-    <select #floor (change)="setFloor(floor.value)"
-            [(ngModel)]="current_floor">
-      <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
-    </select>
-    <div>
-      <label>First ID:</label>
-      <input name="first" [ngModel]="to_add_edge.inVertexId" />
-    </div>
-    <div>
-      <label>Second ID:</label>
-      <input name="second" [ngModel]="to_add_edge.outVertexId" />
-    </div>
-    <div>
-      <label>Distance: </label>
-      <input name="distance" [(ngModel)]="to_add_edge.distance" />
-    </div>
+    Поверх:
+    <p-dropdown [options]="floors" optionLabel="viewValue" (onChange)="setFloor($event)"></p-dropdown>
+    <h5>Відстань</h5>
+    <div>    <input type="text" [(ngModel)]="to_add_edge.distance" pInputText /></div>
 
-    <button (click)="sumbit()">Add navigation edge</button>
+    <button pButton type="submit" (click)="sumbit()" class="p-button-raised p-button-rounded">Додати сполучення</button>
   </div>
 
   <div class="column">

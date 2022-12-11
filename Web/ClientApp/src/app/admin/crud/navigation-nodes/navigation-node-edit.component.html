@@ -1,10 +1,7 @@
 <div class="row">
   <div class="column">
-    Floor:
-    <select #floor (change)="setFloor(floor.value)"
-            [(ngModel)]="current_floor">
-      <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
-    </select>
+    Поверх:
+    <p-dropdown [options]="floors" optionLabel="viewValue" (onChange)="setFloor($event)"></p-dropdown>
     <h5>Navigation node coordinates:</h5>
 
     <div>
@@ -17,8 +14,8 @@
       <input name="y" [(ngModel)]="to_update_node.y" />
     </div>
 
-    <button (click)="update()">Update</button>
-    <button (click)="delete()">Delete</button>
+    <button pButton type="submit" (click)="update()" class="p-button-raised p-button-rounded">Оновити</button>
+    <button pButton type="submit" (click)="delete()" class="p-button-raised p-button-rounded p-button-danger">Видалити</button>
   </div>
 
   <div class="column">

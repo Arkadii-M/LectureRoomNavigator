@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BLL.Concrete
 {
@@ -24,6 +25,7 @@ namespace BLL.Concrete
 
         public NavigationNodeDTO AddNavigationNode(NavigationNodeDTO node)
         {
+            node.Id = Guid.NewGuid().ToString();
             return _node_navigator.AddNavigationNode(node);
         }
 
@@ -80,6 +82,7 @@ namespace BLL.Concrete
 
         public NavigationEdgeDTO AddNavigationEdge(NavigationEdgeDTO edge)
         {
+            edge.Id = Guid.NewGuid().ToString();
             return _edge_navigator.AddNavigationEdge(edge);
         }
 

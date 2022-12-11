@@ -2,6 +2,7 @@
 using DTO.Vertices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,23 +35,27 @@ namespace Web.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public void Post([FromBody] LectureRoomDTO value)
+        public IActionResult Post([FromBody] LectureRoomDTO room)
         {
-            _lectrueRoomManger.AddLectureRoom(value);
+            room = _lectrueRoomManger.AddLectureRoom(room);
+            return Created("", room);
         }
 
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public void Put([FromBody] LectureRoomDTO value)
+        public IActionResult Put([FromBody] LectureRoomDTO value)
         {
             _lectrueRoomManger.UpdateLectureRoom(value);
+            return Ok();
         }
 
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public void Delete([FromQuery] string id)
+        public IActionResult Delete([FromQuery] string id)
         {
-            _lectrueRoomManger.RemoveLectureRoomById(id);
+            if (_lectrueRoomManger.RemoveLectureRoomById(id))
+                return Ok();
+            return BadRequest();
         }
     }
 }

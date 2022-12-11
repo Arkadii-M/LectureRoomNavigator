@@ -40,7 +40,15 @@ namespace Web.Controllers
         public IActionResult Post([FromBody] UserDTO user)
         {
             user.Roles = new List<RoleDTO>() { new RoleDTO { Name = "user" } };
-            user = this._userManager.AddUser(user);
+            try
+            {
+                user = this._userManager.AddUser(user);
+            }
+            catch(Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest();
+            }
             return Created("", user);
         }
 

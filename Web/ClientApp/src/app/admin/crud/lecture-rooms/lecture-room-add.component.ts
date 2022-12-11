@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Floor, MapComponent } from '../../../map/map.component';
 import { LectureRoomService } from '../../../services/lecture-room.service'
 import { LectureRoom } from '../../../dto/lectrure-room.dto'
-import { v4 as uuidv4 } from 'uuid'
 import { Faculty } from '../../../dto/faculty.dto';
 import { FacultyService } from '../../../services/faculty.service';
 
@@ -16,11 +15,11 @@ import { FacultyService } from '../../../services/faculty.service';
 export class LectureRoomAddComponent {
   selectedOption: string = '';
   floors: any[] = [
-    { value: 0, viewValue: 'Basement' },
-    { value: 1, viewValue: 'First' },
-    { value: 2, viewValue: 'Second' },
-    { value: 3, viewValue: 'Third' },
-    { value: 4, viewValue: 'Fourth' },
+    { value: 0, viewValue: 'Підвал' },
+    { value: 1, viewValue: 'Перший' },
+    { value: 2, viewValue: 'Другий' },
+    { value: 3, viewValue: 'Третій' },
+    { value: 4, viewValue: 'Четвертий' },
   ];
 
   public lecture_rooms: LectureRoom[] = [];
@@ -58,22 +57,20 @@ export class LectureRoomAddComponent {
     this.to_add_room.floor = this.current_floor;
   }
 
-  setFloor(value: string) {
-    this.current_floor = Number(value);
+  setFloor(event: any) {
+    this.current_floor = Number(event.value.value);
     this.to_add_room.floor = this.current_floor;
     this.to_add_room.x = 0;
     this.to_add_room.y = 0;
   }
-  setFaculty(value: Faculty) {
-    this.to_add_room.faculty = value;
+  setFaculty(event: any) {
+    this.to_add_room.faculty = event.value;
   }
   ChildEventHandler(value: number[]) {
     this.to_add_room.x = value[0];
     this.to_add_room.y = value[1];
   }
   sumbit() {
-    this.to_add_room.id = uuidv4();
-    console.log(this.to_add_room);
     this.lectrue_room_service.addOne(this.to_add_room).subscribe(finish => { this.UpdateLectureRooms(); }, err => { console.log(err); });
   }
 

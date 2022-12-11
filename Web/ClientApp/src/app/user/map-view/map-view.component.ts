@@ -33,9 +33,6 @@ export class MapViewComponent implements OnInit {
 
   current_floor: number = Floor.FirstFloor;
   show_rooms: boolean = true;
-  show_nav_nodes: boolean = true;
-  show_nav_edges: boolean = true;
-  click_coordinates: number[] = [0,0];
 
   constructor(
     private lectrue_room_service: LectureRoomService,
@@ -48,32 +45,10 @@ export class MapViewComponent implements OnInit {
       this.lecture_rooms = results;
       this.data_loaded = true;
     }, err => { console.error(err); });
-
-
-    //this.navigation_edge_service.getAll().subscribe(result => {
-    //  this.navigation_edges = result;
-    //}, err => { console.error(err); });
-    //this.navigation_node_service.getAll().subscribe(result => {
-    //  this.navigation_nodes = result;
-    //}, err => { console.error(err); })
     
   }
 
-  setFloor(value: string) {
-    this.current_floor = Number(value);
-  }
-  ShowRooms(value: string) {
-    this.show_rooms = (value == "true") ? true : false;
-  }
-  ShowNavigationNodes(value: string) {
-    this.show_nav_nodes = (value == "true") ? true : false;
-    console.log(this.show_nav_nodes);
-  }
-  ShowNavigationEdges(value: string) {
-    this.show_nav_edges = (value == "true") ? true : false;
-    console.log(this.show_nav_edges);
-  }
-  ChildEventHandler(value: number[]) {
-    this.click_coordinates = value;
+  setFloor(event: any) {
+    this.current_floor = Number(event.value.value);
   }
 }

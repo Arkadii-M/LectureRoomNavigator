@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Floor, MapComponent } from '../../../map/map.component';
 import { LectureRoomService } from '../../../services/lecture-room.service'
 import { LectureRoom } from '../../../dto/lectrure-room.dto'
-import { v4 as uuidv4 } from 'uuid'
 import { Faculty } from '../../../dto/faculty.dto';
 import { FacultyService } from '../../../services/faculty.service';
 
@@ -16,11 +15,11 @@ import { FacultyService } from '../../../services/faculty.service';
 export class LectureRoomEditComponent {
   selectedOption: string = '';
   floors: any[] = [
-    { value: 0, viewValue: 'Basement' },
-    { value: 1, viewValue: 'First' },
-    { value: 2, viewValue: 'Second' },
-    { value: 3, viewValue: 'Third' },
-    { value: 4, viewValue: 'Fourth' },
+    { value: 0, viewValue: 'Підвал' },
+    { value: 1, viewValue: 'Перший' },
+    { value: 2, viewValue: 'Другий' },
+    { value: 3, viewValue: 'Третій' },
+    { value: 4, viewValue: 'Четвертий' },
   ];
 
   public lecture_rooms: LectureRoom[] = [];
@@ -54,14 +53,13 @@ export class LectureRoomEditComponent {
   ngOnInit(): void {
     this.GetAllLectureRooms();
   }
-
-  setFloor(value: string) {
-    this.current_floor = Number(value);
+  setFloor(event: any) {
+    this.current_floor = Number(event.value.value);
     this.to_update_room.id = '';
   }
-  setFaculty(value: Faculty) {
+  setFaculty(event: any) {
     if (this.to_update_room)
-      this.to_update_room.faculty = value;
+      this.to_update_room.faculty = event.value;
   }
   ClickOnRoomNodeHandle(room_id: string) {
     let selected = this.lecture_rooms.find((lr) => { return lr.id == room_id; });

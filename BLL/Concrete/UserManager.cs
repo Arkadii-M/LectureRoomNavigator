@@ -22,6 +22,10 @@ namespace BLL.Concrete
         }
         public UserDTO AddUser(UserDTO user)
         {
+            user.Id = Guid.NewGuid().ToString();
+            if (_userDal.GetUserByName(user.UserName).UserName != String.Empty)
+                throw new Exception("User already exist!");
+
             user = _userDal.AddUser(user);
             var roles = _roleDal.GetAllRoles();
 

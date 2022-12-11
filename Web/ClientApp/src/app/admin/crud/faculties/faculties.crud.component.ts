@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Faculty } from '../../../dto/faculty.dto';
 import { FacultyService } from '../../../services/faculty.service';
-import { v4 as uuidv4 } from 'uuid'
 
 @Component({
   selector: 'faculties-crud',
@@ -50,7 +49,6 @@ export class FacultiesCRUDComponent {
       console.error("Invalid name length!")
       return;
     }
-    this.faculty.id = uuidv4();
     this.faculty_service.addOne(this.faculty).subscribe(res => this.UpdateFaculties());
   }
 }

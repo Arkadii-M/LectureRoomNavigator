@@ -22,6 +22,7 @@ namespace BLL.Concrete
         }
         public FacultyDTO AddFaculty(FacultyDTO faculty)
         {
+            faculty.Id = Guid.NewGuid().ToString();
             return this._faculty_dal.AddFaculty(faculty);
         }
 

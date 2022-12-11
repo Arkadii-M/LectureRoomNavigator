@@ -1,31 +1,5 @@
 Поверх:
-<select #floor (change)="setFloor(floor.value)"
-        [(ngModel)]="current_floor">
-  <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
-</select>
-
-
-<!--Show lecture rooms: <select #show_room (change)="ShowRooms(show_room.value)">
-  <option value="true">Yes</option>
-  <option value="false">No</option>
-</select>
-Show navigation nodes: <select #show_nav_node (change)="ShowNavigationNodes(show_nav_node.value)">
-  <option value="true">Yes</option>
-  <option value="false">No</option>
-</select>
-
-Show navigation edges: <select #show_nav_edge (change)="ShowNavigationEdges(show_nav_edge.value)">
-  <option value="true">Yes</option>
-  <option value="false">No</option>
-</select>-->
-<!--<university-map *ngIf="data_loaded"
-                [LectureRoomsLayersData]="lecture_rooms"
-                [NavigationNodesLayersData]="navigation_nodes"
-                [NavigationEdgesLayersData]="navigation_edges"
-                [CurrentFloor]="current_floor"
-                [ShowLectureRooms]="show_rooms"
-                [ShowNavigationNodes]="show_nav_nodes"
-                [ShowNavigationEdges]="show_nav_edges"></university-map>-->
+<p-dropdown [options]="floors" optionLabel="viewValue" (onChange)="setFloor($event)"></p-dropdown>
 <university-map *ngIf="data_loaded"
                 [LectureRoomsLayersData]="lecture_rooms"
                 [CurrentFloor]="current_floor"

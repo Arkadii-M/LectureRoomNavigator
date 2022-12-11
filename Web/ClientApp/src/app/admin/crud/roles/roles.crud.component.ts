@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Role } from '../../../dto/user.dto';
 import { RoleService } from '../../../services/role.service';
-import { v4 as uuidv4 } from 'uuid'
 
 @Component({
   selector: 'roles-crud',
@@ -52,7 +51,6 @@ export class RolesCRUDComponent {
       console.error("Invalid name length!")
       return;
     }
-    this.role.id = uuidv4();
     this.role_service.addOne(this.role).subscribe(res => this.UpdateRoles());
   }
 }

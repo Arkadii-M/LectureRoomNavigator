@@ -3,41 +3,26 @@
 
 <div class="row">
   <div class="column">
-    Floor:
-    <select #floor (change)="setFloor(floor.value)"
-            [(ngModel)]="current_floor">
-      <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
-    </select>
-    <h5>Lecture room coordinates:</h5>
+    Поверх:
+    <p-dropdown [options]="floors" optionLabel="viewValue" (onChange)="setFloor($event)"></p-dropdown>
 
-    <div>
-      <label>x:</label>
-      <input name="x" [(ngModel)]="to_add_room.x" />
+    <div class="p-field p-col-12 h-5rem">
+      <span class="p-float-label">
+        <input type="text" pInputText [(ngModel)]="to_add_room.name"  />
+        <label>Номер</label>
+      </span>
     </div>
-
-    <div>
-      <label>y:</label>
-      <input name="y" [(ngModel)]="to_add_room.y" />
-    </div>
-
-    <div>
-      <label>Number:</label>
-      <input name="lr_name" [(ngModel)]="to_add_room.name" />
-    </div>
-
-    <div>
-      <label>Number of seats:</label>
-      <input name="numOfSeats" [(ngModel)]="to_add_room.numberOfSeats" />
+    <div class="p-field p-col-12 h-5rem">
+      <span class="p-float-label">
+        <input type="text" pInputText [(ngModel)]="to_add_room.numberOfSeats"  />
+        <label>Кількість місць</label>
+      </span>
     </div>
     <div>
-      Faculty:
-      <select #faculty (change)="setFaculty(faculty)"
-              [(ngModel)]="faculties">
-        <option [value]="item" *ngFor="let item of faculties">{{item.name}}</option>
-      </select>
+      Факультет:
+      <p-dropdown [options]="faculties" optionLabel="name" (onChange)="setFaculty($event)"></p-dropdown>
     </div>
-
-    <button (click)="sumbit()">Add room</button>
+    <button pButton type="submit" (click)="sumbit()" class="p-button-raised p-button-rounded">Додати аудиторію</button>
   </div>
 
   <div class="column">

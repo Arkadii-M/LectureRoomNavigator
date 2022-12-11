@@ -1,11 +1,8 @@
-<div id="loginForm">
-  <p>
-    <label>Логін</label><br />
-    <input type="email" [(ngModel)]="username" />
-  </p>
-  <p>
-    <label>Пароль</label><br />
-    <input type="password" [(ngModel)]="password" />
-  </p>
-  <input type="submit" value="Зареєструватись" (click)="Register()" />
+<div id="RegisterForm">
+  <div>
+    <input type="text" [(ngModel)]="username" placeholder="Логін" pInputText>
+  </div>
+  <div><input type="password" [(ngModel)]="password" placeholder="Пароль" pInputText></div>
+  <h5 *ngIf="register_failed">Користувач з таким логіном вже існує</h5>
+  <button pButton type="submit" (click)="Register()" class="p-button-raised p-button-rounded">Зареєструватись</button>
 </div>

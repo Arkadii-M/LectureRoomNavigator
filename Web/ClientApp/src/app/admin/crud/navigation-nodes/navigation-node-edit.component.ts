@@ -18,11 +18,11 @@ import { NavigationNodeService } from '../../../services/navigation-node.service
 export class NavigationNodeEditComponent {
   selectedOption: string = '';
   floors: any[] = [
-    { value: 0, viewValue: 'Basement' },
-    { value: 1, viewValue: 'First' },
-    { value: 2, viewValue: 'Second' },
-    { value: 3, viewValue: 'Third' },
-    { value: 4, viewValue: 'Fourth' },
+    { value: 0, viewValue: 'Підвал' },
+    { value: 1, viewValue: 'Перший' },
+    { value: 2, viewValue: 'Другий' },
+    { value: 3, viewValue: 'Третій' },
+    { value: 4, viewValue: 'Четвертий' },
   ];
 
   public navigation_nodes: NavigationNode[] = [];
@@ -50,11 +50,10 @@ export class NavigationNodeEditComponent {
     this.GetAllNavigationNodes();
   }
 
-  setFloor(value: string) {
-    this.current_floor = Number(value);
+  setFloor(event: any) {
+    this.current_floor = Number(event.value.value);
     this.to_update_node.id = '';
   }
-
   ClickNavigationNodeHandle(nav_id: string) {
     let selected = this.navigation_nodes.find((nav) => { return nav.id == nav_id; });
     if (!selected)

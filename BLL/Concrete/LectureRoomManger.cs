@@ -24,6 +24,7 @@ namespace BLL.Concrete
 
         public LectureRoomDTO AddLectureRoom(LectureRoomDTO node)
         {
+            node.Id = Guid.NewGuid().ToString();
             var room = _lecture_room.AddLectureRoomNode(node);
             if(node.Faculty is not null)
             {

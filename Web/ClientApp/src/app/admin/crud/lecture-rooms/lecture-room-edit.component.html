@@ -1,41 +1,27 @@
 <div class="row">
   <div class="column">
     Floor:
-    <select #floor (change)="setFloor(floor.value)"
-            [(ngModel)]="current_floor">
-      <option [value]="item.value" *ngFor="let item of floors">{{item.viewValue}}</option>
-    </select>
-    <h5>Lecture room coordinates:</h5>
-
+    <p-dropdown [options]="floors" optionLabel="viewValue" (onChange)="setFloor($event)"></p-dropdown>
     <div>
-      <label>x:</label>
-      <input name="x" [(ngModel)]="to_update_room.x" />
+      <div class="p-field p-col-12 h-5rem">
+        <span class="p-float-label">
+          <input type="text" pInputText [(ngModel)]="to_update_room.name" />
+          <label>Номер</label>
+        </span>
+      </div>
+      <div class="p-field p-col-12 h-5rem">
+        <span class="p-float-label">
+          <input type="text" pInputText [(ngModel)]="to_update_room.numberOfSeats" />
+          <label>Кількість місць</label>
+        </span>
+      </div>
+      <div>
+        Факультет:
+        <p-dropdown [options]="faculties" [(ngModel)]="to_update_room.faculty" optionLabel="name"></p-dropdown>
+      </div>
     </div>
-
-    <div>
-      <label>y:</label>
-      <input name="y" [(ngModel)]="to_update_room.y" />
-    </div>
-
-    <div>
-      <label>Number:</label>
-      <input name="lr_name" [(ngModel)]="to_update_room.name" readonly/>
-    </div>
-
-    <div>
-      <label>Number of seats:</label>
-      <input name="numOfSeats" [(ngModel)]="to_update_room.numberOfSeats" />
-    </div>
-    <div>
-      Faculty:
-      <select #faculty (change)="setFaculty(faculty)"
-              [(ngModel)]="faculties">
-        <option [value]="item" *ngFor="let item of faculties">{{item.name}}</option>
-      </select>
-    </div>
-
-    <button (click)="update()">Update</button>
-    <button (click)="delete()">Delete</button>
+    <button pButton type="submit" (click)="update()" class="p-button-raised p-button-rounded">Оновити</button>
+    <button pButton type="submit" (click)="delete()" class="p-button-raised p-button-rounded p-button-danger">Видалити</button>
   </div>
 
   <div class="column">
