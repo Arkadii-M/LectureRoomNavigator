@@ -1,7 +1,7 @@
 <div class="row">
   <div class="column">
     Поверх:
-    <p-dropdown [options]="floors" optionLabel="viewValue" (onChange)="setFloor($event)"></p-dropdown>
+    <p-dropdown [options]="floors" optionLabel="viewValue" [(ngModel)]="current_floor_object" (onChange)="setFloor($event)"></p-dropdown>
     <h5>Navigation node coordinates:</h5>
 
     <div>

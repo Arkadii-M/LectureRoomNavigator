@@ -24,7 +24,7 @@ export class NavigationNodeEditComponent {
     { value: 3, viewValue: 'Третій' },
     { value: 4, viewValue: 'Четвертий' },
   ];
-
+  current_floor_object: any = this.floors[1];
   public navigation_nodes: NavigationNode[] = [];
 
   public to_update_node: NavigationNode = new NavigationNode;

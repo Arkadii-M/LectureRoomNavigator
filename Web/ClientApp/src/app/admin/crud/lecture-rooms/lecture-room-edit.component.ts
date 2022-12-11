@@ -21,6 +21,7 @@ export class LectureRoomEditComponent {
     { value: 3, viewValue: 'Третій' },
     { value: 4, viewValue: 'Четвертий' },
   ];
+  current_floor_object: any = this.floors[1];
 
   public lecture_rooms: LectureRoom[] = [];
   public faculties: Faculty[] = [];
