@@ -11,5 +11,6 @@ namespace DAL.Interface
     {
         FacultyDTO GetFacultyForLectureRoom(LectureRoomDTO lectureRoom);
         bool AddLectureRoomToFaculty(LectureRoomDTO lectureRoom, FacultyDTO faculty);
+        bool RemoveFacultyEdgeForLectureRoom(LectureRoomDTO lectureRoom, FacultyDTO faculty);
     }
 }

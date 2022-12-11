@@ -1,47 +1,67 @@
 <link rel="stylesheet" href="https://unpkg.com/primeflex@^3/primeflex.css">
-<div class="grid">
-  <div class="col-8">
-    <div class="grid">
-      <div class="col-6">
-        Початкова точка: <p-dropdown [options]="all_lecture_rooms"
-                    [(ngModel)]="start_point"
-                    optionLabel="name"
-                    [filter]="true"
-                    filterBy="name"
-                    placeholder="Select start point"></p-dropdown>
-      </div>
-      <div class="col-6">
-        Кінцева точка: <p-dropdown [options]="all_lecture_rooms"
-                                     [(ngModel)]="stop_point"
-                                     optionLabel="name"
-                                     [filter]="true"
-                                     filterBy="name"
-                                     placeholder="Select stop point"></p-dropdown>
-      </div>
-      <div class="col-12">
-        <p-button label="Прокласти маршрут" icon="pi pi-search" [loading]="find_path_loading" (click)="find_and_show_path()"></p-button>
-      </div>
-    </div>
-  </div>
-  <div class="col-4" *ngIf="show_map">
-    <div class="grid">
-      <div class="col-4">
-        <button pButton type="button" class="p-button-raised p-button-rounded" (click)="show_prev()">Попередня точка</button>
-      </div>
-      <div class="col-4">
-        <button pButton type="button" class="p-button-raised p-button-rounded" (click)="show_next()">Наступна точка</button>
-      </div>
-    </div>
-    </div>
-</div>
 
-<university-map *ngIf="show_map"
-                [LectureRoomsLayersData]="nav_lecture_rooms"
-                [NavigationNodesLayersData]="nav_navigation_nodes"
-                [NavigationEdgesLayersData]="nav_navigation_edges"
-                [ShowLectureRooms]="show_rooms"
-                [ShowNavigationNodes]="show_nav_nodes"
-                [ShowNavigationEdges]="show_nav_edges"
-                [CurrentFloor]="current_floor"
-                [HighlightNodes]="current_highlight"
-                [SetCenterIfNotInView]="current_coordinates"></university-map>
+<p-dropdown [options]="all_lecture_rooms"
+            [(ngModel)]="start_point"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Початкова точка"></p-dropdown>
+<p-dropdown [options]="all_lecture_rooms"
+                             [(ngModel)]="stop_point"
+                             optionLabel="name"
+                             [filter]="true"
+                             filterBy="name"
+                             placeholder="Кінчева точка"></p-dropdown>
+<p-button label="Прокласти маршрут" icon="pi pi-search" [loading]="find_path_loading" (click)="find_and_show_path()"></p-button>
+
+<div *ngIf="show_map">
+  <button pButton type="button" class="p-button-raised p-button-rounded" (click)="show_prev()">Попередня точка</button>
+  <button pButton type="button" class="p-button-raised p-button-rounded" (click)="show_next()">Наступна точка</button>
+</div>
+  <!--<div class="col-6">
+    <div class="grid">
+      <div class="col-8">
+        <div class="grid">
+          <div class="col-6">
+            Початкова точка: <p-dropdown [options]="all_lecture_rooms"
+                                         [(ngModel)]="start_point"
+                                         optionLabel="name"
+                                         [filter]="true"
+                                         filterBy="name"
+                                         placeholder="Select start point"></p-dropdown>
+          </div>
+          <div class="col-6">
+            Кінцева точка: <p-dropdown [options]="all_lecture_rooms"
+                                       [(ngModel)]="stop_point"
+                                       optionLabel="name"
+                                       [filter]="true"
+                                       filterBy="name"
+                                       placeholder="Select stop point"></p-dropdown>
+          </div>
+          <div class="col-12">
+            <p-button label="Прокласти маршрут" icon="pi pi-search" [loading]="find_path_loading" (click)="find_and_show_path()"></p-button>
+          </div>
+        </div>
+      </div>
+      <div class="col-4" *ngIf="show_map">
+        <div class="grid">
+          <div class="col-4">
+            <button pButton type="button" class="p-button-raised p-button-rounded" (click)="show_prev()">Попередня точка</button>
+          </div>
+          <div class="col-4">
+            <button pButton type="button" class="p-button-raised p-button-rounded" (click)="show_next()">Наступна точка</button>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <university-map *ngIf="show_map"
+                    [LectureRoomsLayersData]="nav_lecture_rooms"
+                    [NavigationNodesLayersData]="nav_navigation_nodes"
+                    [NavigationEdgesLayersData]="nav_navigation_edges"
+                    [ShowLectureRooms]="show_rooms"
+                    [ShowNavigationNodes]="show_nav_nodes"
+                    [ShowNavigationEdges]="show_nav_edges"
+                    [CurrentFloor]="current_floor"
+                    [HighlightNodes]="current_highlight"
+                    [SetCenterIfNotInView]="current_coordinates"></university-map>

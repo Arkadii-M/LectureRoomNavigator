@@ -48,7 +48,7 @@ export class LectureRoomAddComponent {
 
     this.faculty_service.getAll().subscribe(results => {
       this.faculties = results;
-      this.setFaculty(this.faculties[0]);
+      this.to_add_room.faculty = this.faculties[0];
     }, err => { console.error(err); });
   }
 

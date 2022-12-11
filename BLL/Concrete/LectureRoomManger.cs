@@ -28,7 +28,7 @@ namespace BLL.Concrete
             var room = _lecture_room.AddLectureRoomNode(node);
             if(node.Faculty is not null)
             {
-                var faculty = _faculty_dal.GetFacultyByName(node.Faculty.Name);
+                var faculty = _faculty_dal.GetFacultyById(node.Faculty.Id);
                 _faculty_edge_dal.AddLectureRoomToFaculty(node, faculty);
             }
             return room;
@@ -74,7 +74,17 @@ namespace BLL.Concrete
 
         public LectureRoomDTO UpdateLectureRoom(LectureRoomDTO node)
         {
+            if (node.Faculty is not null)
+            {
+                var faculty = _faculty_edge_dal.GetFacultyForLectureRoom(node);
+                if(faculty.Id != node.Faculty.Id)
+                {
+                    _faculty_edge_dal.RemoveFacultyEdgeForLectureRoom(node,faculty);
+                    _faculty_edge_dal.AddLectureRoomToFaculty(node, node.Faculty);
+                }
+            }
             return _lecture_room.UpdateLectureRoomNode(node);
+
         }
 
         private void AttachFacultyProperty(ref LectureRoomDTO room)
