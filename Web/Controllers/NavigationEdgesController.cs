@@ -36,14 +36,14 @@ namespace Web.Controllers
         {
             try
             {
-                _navigationManager.AddNavigationEdge(edge);
+                edge = _navigationManager.AddNavigationEdge(edge);
             }
             catch(Exception exp)
             {
                 _logger.LogError(exp.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            return Ok();
+            return Created("",edge);
         }
     }
 }

@@ -9,6 +9,8 @@ import { NavigationEdgeService } from '../../services/navigation-edge.service';
 import { NavigationNodeService } from '../../services/navigation-node.service';
 import { PathService } from '../../services/path.service';
 import { DropdownModule } from 'primeng/dropdown';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'room-navigation',
@@ -49,13 +51,19 @@ export class NavigationComponent{
   constructor(private path_service: PathService,
     private nav_node_service: NavigationNodeService,
     private nav_edge_service: NavigationEdgeService,
-    private lect_room_service: LectureRoomService) {
+    private lect_room_service: LectureRoomService,
+    private activateRoute: ActivatedRoute,) {
+    activateRoute.queryParams.subscribe(
+      (queryParam: any) => {
+        this.to_id = queryParam.id;
+        console.log(queryParam);
+      }
+    );
   }
 
   private ExtractCoordinates(node: NavigationNode) {
     return [node.x, node.y];
   }
-
 
 
   private GetDataForPath() {
@@ -76,6 +84,12 @@ export class NavigationComponent{
     this.find_path_loading = false;
   }
 
+  private SetEndpointFromQuery(): void {
+    let endpoint = this.all_lecture_rooms.find((room) => {return room.id == this.to_id; });
+    if (endpoint)
+      this.stop_point = endpoint;
+  }
+
   ngOnInit(): void {
     this.nav_node_service.GetEnterNode().subscribe(result => {
       this.start_point.id = result.id;
@@ -93,6 +107,7 @@ export class NavigationComponent{
         return 0;
       });
       this.all_lecture_rooms = this.all_lecture_rooms.concat(sorted_rooms);
+      this.SetEndpointFromQuery();
     }, err => console.log(err));
   }
 
@@ -105,7 +120,7 @@ export class NavigationComponent{
 
   show_next() {
     if (this.current_node_index+1 == this.nav_navigation_nodes.length) {
-      alert("Finish");
+      alert("Кінець маршруту");
       return;
     }
 
@@ -115,9 +130,9 @@ export class NavigationComponent{
     this.change_node_to(curr_node);
 
     if (curr_node.floor > prev_node.floor)
-      alert("go upstairs");
+      alert("піднятися на поверх вище");
     else if (curr_node.floor < prev_node.floor)
-      alert("go down upstairs");
+      alert("спуститися на поверх нижче");
     
   }
 

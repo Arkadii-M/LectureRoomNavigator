@@ -57,15 +57,18 @@ namespace Web.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public void Put([FromBody] NavigationNodeDTO value)
+        public IActionResult Put([FromBody] NavigationNodeDTO value)
         {
             _navigationManager.UpdateNavigationNode(value);
+            return Ok();
         }
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public void Delete([FromQuery] string id)
+        public IActionResult Delete([FromQuery] string id)
         {
-            _navigationManager.RemoveNavigationNodeById(id);
+            if (_navigationManager.RemoveNavigationNodeById(id))
+                return Ok();
+            return BadRequest();
         }
     }
 }
